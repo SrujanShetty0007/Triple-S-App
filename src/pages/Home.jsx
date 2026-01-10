@@ -5,6 +5,7 @@ import { subjects } from '../data/subjects';
 import HeroSection from '../components/common/HeroSection';
 import SubjectGrid from '../components/subjects/SubjectGrid';
 import SemesterFilter from '../components/subjects/SemesterFilter';
+import SEO from '../components/common/SEO';
 import { APP_NAME, APP_DESCRIPTION } from '../utils/constants';
 
 const Home = () => {
@@ -30,6 +31,12 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-slate-50">
+      <SEO 
+        title="Triple S - Student Study Support | Engineering Study Materials"
+        description="Triple S - Student Study Support provides curated notes, model papers, and previous year question papers for engineering students to excel in their exams."
+        keywords="student study support, engineering notes, model papers, previous year papers, exam preparation, VTU, engineering education, BE notes, BTech notes"
+        url="https://triple-s.netlify.app/"
+      />
       <HeroSection title={APP_NAME} subtitle={APP_DESCRIPTION}>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link to="/2025-scheme"

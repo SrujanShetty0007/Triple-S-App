@@ -1,5 +1,6 @@
 import { FaBullseye, FaBook, FaFileAlt, FaHistory, FaUsers, FaMobileAlt, FaLayerGroup, FaLinkedinIn, FaGithub, FaInstagram, FaBookOpen } from 'react-icons/fa';
 import HeroSection from '../components/common/HeroSection';
+import SEO from '../components/common/SEO';
 import adminImage from '../assets/images/admin.jpg';
 
 const About = () => {
@@ -14,6 +15,12 @@ const About = () => {
 
   return (
     <div className="min-h-screen bg-slate-50">
+      <SEO 
+        title="About Triple S - Student Study Support | Our Mission & Story"
+        description="Learn about Triple S - an open-source platform dedicated to helping engineering students excel by providing organized study materials, notes and exam papers."
+        keywords="about Triple S, student study support, engineering education platform, academic resources, study materials, Srujan S Shetty"
+        url="https://triple-s.netlify.app/about"
+      />
       <HeroSection 
         badge={<div className="flex items-center gap-2"><FaBookOpen className="text-blue-400" /> About Us</div>} 
         title="About Triple S" 

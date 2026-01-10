@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { FaCalculator, FaChartLine, FaSearch, FaGraduationCap, FaFileAlt, FaBell, FaBookOpen, FaCalendarAlt, FaUniversity, FaMapMarkerAlt, FaHistory, FaGlobe } from 'react-icons/fa';
 import HeroSection from '../components/common/HeroSection';
+import SEO from '../components/common/SEO';
 
 const VTU = () => {
   const tools = [
@@ -59,6 +60,12 @@ const VTU = () => {
 
   return (
     <div className="min-h-screen bg-slate-50">
+      <SEO 
+        title="VTU Resources & Tools | SGPA CGPA Calculator, Results"
+        description="Access VTU resources including SGPA Calculator, CGPA Calculator, exam results, model question papers, and official VTU circulars. Your one-stop VTU portal."
+        keywords="VTU, SGPA calculator, CGPA calculator, VTU results, VTU exam, Visvesvaraya Technological University, VTU grade calculator"
+        url="https://triple-s.netlify.app/vtu"
+      />
       <HeroSection 
         badge={<div className="flex items-center gap-2"><FaUniversity className="text-blue-300" /> VTU Portal</div>} 
         title="VTU Resources & Tools" 

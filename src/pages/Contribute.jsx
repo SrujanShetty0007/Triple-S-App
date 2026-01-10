@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { FaUpload, FaEnvelope, FaWhatsapp, FaPaperPlane, FaCheckCircle, FaCloudUploadAlt, FaHeadset } from 'react-icons/fa';
 import HeroSection from '../components/common/HeroSection';
+import SEO from '../components/common/SEO';
 import { CONTACT } from '../utils/constants';
 
 const Contribute = () => {
@@ -31,6 +32,12 @@ const Contribute = () => {
 
   return (
     <div className="min-h-screen bg-slate-50">
+      <SEO 
+        title="Contribute Study Materials | Share Your Knowledge"
+        description="Help fellow engineering students by sharing your study materials, notes, model papers, and previous year question papers on Triple S."
+        keywords="contribute study materials, share notes, upload engineering notes, help students, academic contribution"
+        url="https://triple-s.netlify.app/contribute"
+      />
       <HeroSection 
         badge={<div className="flex items-center gap-2"><FaCloudUploadAlt className="text-blue-400" /> Share Your Knowledge</div>} 
         title="Contribute Materials" 

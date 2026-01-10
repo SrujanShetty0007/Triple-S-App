@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { FaEnvelope, FaWhatsapp, FaPaperPlane, FaClock, FaArrowRight, FaComments } from 'react-icons/fa';
 import HeroSection from '../components/common/HeroSection';
+import SEO from '../components/common/SEO';
 import { CONTACT } from '../utils/constants';
 
 const Contact = () => {
@@ -22,6 +23,12 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen bg-slate-50">
+      <SEO 
+        title="Contact Us - Triple S | Get In Touch"
+        description="Have questions about Triple S? Contact us via email or WhatsApp. We'd love to hear from students and collaborators."
+        keywords="contact Triple S, student support contact, engineering notes help, Triple S email, Triple S WhatsApp"
+        url="https://triple-s.netlify.app/contact"
+      />
       <HeroSection 
         badge={<div className="flex items-center gap-2"><FaComments className="text-blue-400" /> Get In Touch</div>} 
         title="Contact Us" 
