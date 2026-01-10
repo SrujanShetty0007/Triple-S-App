@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
-  FaBars, FaTimes, FaChevronDown, FaHome, FaInfoCircle, 
+  FaChevronDown, FaHome, FaInfoCircle, 
   FaGraduationCap, FaLayerGroup, FaUniversity, FaHandHoldingHeart, 
   FaEnvelope, FaChevronRight, FaUserCircle
 } from 'react-icons/fa';
@@ -25,14 +25,12 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close menu on route change
   useEffect(() => {
     setIsMobileMenuOpen(false);
     setActiveDropdown(null);
     setShowUserMenu(false);
   }, [location]);
 
-  // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (showUserMenu && !e.target.closest('.user-menu-container')) {
@@ -43,22 +41,34 @@ const Header = () => {
     return () => document.removeEventListener('click', handleClickOutside);
   }, [showUserMenu]);
 
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMobileMenuOpen]);
+
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
     if (isMobileMenuOpen) setActiveDropdown(null);
   };
 
   const getIcon = (name) => {
-    switch (name) {
-      case 'Home': return <FaHome />;
-      case 'About Us': return <FaInfoCircle />;
-      case '2025 Scheme': return <FaGraduationCap />;
-      case 'Subjects': return <FaLayerGroup />;
-      case 'VTU': return <FaUniversity />;
-      case 'Contribute': return <FaHandHoldingHeart />;
-      case 'Contact': return <FaEnvelope />;
-      default: return null;
-    }
+    const icons = {
+      'Home': <FaHome />,
+      'About Us': <FaInfoCircle />,
+      '2025 Scheme': <FaGraduationCap />,
+      'Subjects': <FaLayerGroup />,
+      'VTU': <FaUniversity />,
+      'Contribute': <FaHandHoldingHeart />,
+      'Contact': <FaEnvelope />
+    };
+    return icons[name] || null;
   };
 
   return (
@@ -94,7 +104,6 @@ const Header = () => {
                         <FaChevronDown className={`text-[10px] transition-transform duration-300 ${activeDropdown === link.name ? 'rotate-180' : ''}`} />
                       </button>
                       
-                      {/* Dropdown Menu */}
                       <div className={`absolute top-full left-0 mt-2 w-64 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden transition-all duration-300 ${
                         activeDropdown === link.name ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible translate-y-2'
                       }`}>
@@ -131,7 +140,7 @@ const Header = () => {
               
               <div className="ml-4 h-8 w-[1px] bg-gray-200"></div>
               
-              {/* User Login/Avatar Button */}
+              {/* User Login/Avatar */}
               {user ? (
                 <div className="relative ml-4 user-menu-container">
                   <button 
@@ -139,17 +148,16 @@ const Header = () => {
                       e.stopPropagation();
                       setShowUserMenu(!showUserMenu);
                     }}
-                    className="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-sm transition-all shadow-lg hover:shadow-xl"
+                    className="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-sm transition-transform hover:scale-110 shadow-lg"
                     title={user.displayName || user.email}
                   >
                     {(user.displayName || user.email || 'U').charAt(0).toUpperCase()}
                   </button>
                   
-                  {/* User Dropdown */}
-                  <div className={`absolute top-full right-0 mt-2 w-72 bg-white rounded-lg shadow-xl border border-gray-100 overflow-hidden transition-all duration-200 origin-top-right ${
+                  <div className={`absolute top-full right-0 mt-2 w-64 bg-white rounded-lg shadow-xl border border-gray-100 overflow-hidden transition-all duration-200 origin-top-right ${
                     showUserMenu ? 'opacity-100 visible scale-100' : 'opacity-0 invisible scale-95'
                   }`}>
-                    <div className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-100">
+                    <div className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 border-b">
                       <p className="font-bold text-gray-800 truncate">{user.displayName || 'User'}</p>
                       <p className="text-xs text-gray-500 truncate">{user.email}</p>
                     </div>
@@ -165,7 +173,7 @@ const Header = () => {
                         }}
                         className="w-full text-left px-4 py-2.5 text-red-600 hover:bg-red-50 rounded-lg transition-colors flex items-center gap-3"
                       >
-                        <FaTimes className="text-lg" /> 
+                        <span className="text-lg">→</span>
                         <span className="font-medium">Logout</span>
                       </button>
                     </div>
@@ -174,21 +182,20 @@ const Header = () => {
               ) : (
                 <button 
                   onClick={() => setIsLoginModalOpen(true)}
-                  className="ml-4 w-10 h-10 flex items-center justify-center text-blue-600 transition-all"
+                  className="ml-4 w-10 h-10 flex items-center justify-center text-blue-600 hover:scale-110 transition-transform"
                   aria-label="Login"
                 >
                   <FaUserCircle className="text-3xl" />
                 </button>
               )}
               
-              <Link to="/contribute" className="px-6 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-bold text-sm shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30 hover:-translate-y-0.5 transition-all">
+              <Link to="/contribute" className="px-6 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-bold text-sm shadow-lg shadow-blue-500/25 hover:shadow-xl hover:-translate-y-0.5 transition-all">
                 Contribute Now
               </Link>
             </nav>
 
             {/* Mobile Menu Button */}
             <div className="lg:hidden flex items-center gap-3">
-              {/* User Login/Avatar Button (Mobile) */}
               {user ? (
                 <div className="relative user-menu-container">
                   <button 
@@ -197,23 +204,20 @@ const Header = () => {
                       setShowUserMenu(!showUserMenu);
                     }}
                     className="w-9 h-9 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-xs shadow-lg"
-                    title={user.displayName || user.email}
                   >
                     {(user.displayName || user.email || 'U').charAt(0).toUpperCase()}
                   </button>
                   
-                  {/* Mobile User Dropdown */}
-                  <div className={`absolute top-full right-0 mt-3 w-64 bg-white rounded-lg shadow-xl border border-gray-100 overflow-hidden transition-all duration-200 origin-top-right ${
+                  <div className={`absolute top-full right-0 mt-3 w-64 bg-white rounded-lg shadow-xl border overflow-hidden transition-all duration-200 origin-top-right ${
                     showUserMenu ? 'opacity-100 visible scale-100' : 'opacity-0 invisible scale-95'
                   }`}>
-                    <div className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-100">
+                    <div className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 border-b">
                       <p className="font-bold text-gray-800 truncate text-sm">{user.displayName || 'User'}</p>
                       <p className="text-xs text-gray-500 truncate">{user.email}</p>
                     </div>
                     <div className="p-2">
                       <button className="w-full text-left px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors flex items-center gap-3">
-                        <FaUserCircle className="text-lg" /> 
-                        <span className="font-medium">Profile</span>
+                        <FaUserCircle /> <span className="font-medium">Profile</span>
                       </button>
                       <button 
                         onClick={async () => {
@@ -222,8 +226,7 @@ const Header = () => {
                         }}
                         className="w-full text-left px-4 py-2.5 text-red-600 hover:bg-red-50 rounded-lg transition-colors flex items-center gap-3"
                       >
-                        <FaTimes className="text-lg" /> 
-                        <span className="font-medium">Logout</span>
+                        <span>→</span> <span className="font-medium">Logout</span>
                       </button>
                     </div>
                   </div>
@@ -231,56 +234,71 @@ const Header = () => {
               ) : (
                 <button 
                   onClick={() => setIsLoginModalOpen(true)}
-                  className="w-9 h-9 flex items-center justify-center text-blue-600 transition-all"
+                  className="w-9 h-9 flex items-center justify-center text-blue-600"
                   aria-label="Login"
                 >
                   <FaUserCircle className="text-2xl" />
                 </button>
               )}
-               <Link to="/contribute" className="px-4 py-2 bg-blue-50 text-blue-600 rounded-lg font-bold text-xs">
+              
+              <Link to="/contribute" className="px-4 py-2 bg-blue-50 text-blue-600 rounded-lg font-bold text-xs hover:bg-blue-100 transition-colors">
                 Contribute
               </Link>
+              
+              {/* Animated Hamburger Button */}
               <button
                 onClick={toggleMobileMenu}
-                className={`p-2 rounded-xl transition-all ${isMobileMenuOpen ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30' : 'text-gray-700 hover:bg-gray-100'}`}
+                className="w-10 h-10 flex flex-col items-center justify-center gap-1.5 rounded-xl transition-all hover:bg-gray-100"
                 aria-label="Toggle menu"
               >
-                {isMobileMenuOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
+                <span className={`w-6 h-0.5 bg-gray-700 rounded-full transition-all duration-300 ${
+                  isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''
+                }`}></span>
+                <span className={`w-6 h-0.5 bg-gray-700 rounded-full transition-all duration-300 ${
+                  isMobileMenuOpen ? 'opacity-0 scale-0' : 'opacity-100 scale-100'
+                }`}></span>
+                <span className={`w-6 h-0.5 bg-gray-700 rounded-full transition-all duration-300 ${
+                  isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''
+                }`}></span>
               </button>
             </div>
           </div>
         </div>
       </header>
 
-      {/* Mobile Sidebar (Half Screen) */}
-      {/* Backdrop */}
+      {/* Mobile Menu Backdrop */}
       <div 
-        className={`fixed inset-0 z-[110] bg-black/60 backdrop-blur-sm transition-opacity duration-500 lg:hidden ${
-          isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        className={`fixed inset-0 z-[110] bg-black/50 backdrop-blur-sm transition-all duration-300 lg:hidden ${
+          isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
         }`}
         onClick={toggleMobileMenu}
-      ></div>
+      />
 
-      {/* Sidebar Content */}
-      <aside className={`fixed top-0 right-0 h-full w-[85%] sm:w-[400px] md:w-[50%] bg-white z-[120] shadow-2xl transition-transform duration-500 transform lg:hidden ${
+      {/* Mobile Sidebar */}
+      <aside className={`fixed top-0 right-0 h-full w-[85%] sm:w-80 bg-white z-[120] shadow-2xl transition-transform duration-300 ease-out lg:hidden ${
         isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
       }`}>
         <div className="flex flex-col h-full">
           {/* Sidebar Header */}
-          <div className="p-6 border-b border-gray-50 flex items-center justify-between bg-gradient-to-r from-blue-50 to-white">
+          <div className="p-6 border-b bg-gradient-to-r from-blue-50 to-white flex items-center justify-between">
             <div className="flex items-center gap-2">
               <img src={logoB} alt="Logo" className="h-8 w-auto" />
               <span className="font-bold text-blue-600">Menu</span>
             </div>
-            <button onClick={toggleMobileMenu} className="p-2 text-gray-400 hover:text-gray-600 rounded-lg bg-white shadow-sm border border-gray-100">
-              <FaTimes />
+            <button 
+              onClick={toggleMobileMenu} 
+              className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-white transition-colors"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
             </button>
           </div>
 
           {/* Nav Links */}
           <div className="flex-1 overflow-y-auto p-4 space-y-2">
             {NAV_LINKS.map((link) => (
-              <div key={link.name} className="space-y-1">
+              <div key={link.name}>
                 {link.dropdown ? (
                   <>
                     <button
@@ -299,7 +317,7 @@ const Header = () => {
                     </button>
                     
                     <div className={`overflow-hidden transition-all duration-300 ${
-                      activeDropdown === link.name ? 'max-h-[500px] opacity-100 py-2' : 'max-h-0 opacity-0'
+                      activeDropdown === link.name ? 'max-h-96 opacity-100 py-2' : 'max-h-0 opacity-0'
                     }`}>
                       <div className="ml-12 border-l-2 border-blue-100 space-y-1">
                         {link.items.map((item) => (
@@ -336,13 +354,14 @@ const Header = () => {
           </div>
 
           {/* Sidebar Footer */}
-          <div className="p-6 border-t border-gray-50">
-            <p className="text-xs text-center text-gray-400 font-medium">© {new Date().getFullYear()} Triple S • Built for VTU Students</p>
+          <div className="p-6 border-t">
+            <p className="text-xs text-center text-gray-400 font-medium">
+              © {new Date().getFullYear()} Triple S • Built for VTU Students
+            </p>
           </div>
         </div>
       </aside>
 
-      {/* Login Modal */}
       <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} />
     </>
   );

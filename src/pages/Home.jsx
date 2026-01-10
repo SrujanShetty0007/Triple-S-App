@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaSearch, FaArrowUp, FaQuoteLeft, FaCommentDots, FaUserGraduate } from 'react-icons/fa';
+import { FaSearch, FaQuoteLeft, FaUserGraduate, FaChevronLeft, FaChevronRight, FaCheck, FaArrowRight } from 'react-icons/fa';
 import { subjects } from '../data/subjects';
 import HeroSection from '../components/common/HeroSection';
 import SubjectGrid from '../components/subjects/SubjectGrid';
@@ -24,9 +24,9 @@ const Home = () => {
   };
 
   const testimonials = [
-    { name: "Samson", role: "AIML, 2nd Year", text: "The Applied Chemistry notes from Triple S were incredibly detailed. The previous year papers helped me ace my first semester exam!", avatar: <FaUserGraduate /> },
-    { name: "Priya", role: "CSE, 3rd Year", text: "Triple S has been a lifesaver! The organized materials and easy navigation made my exam preparation so much easier.", avatar: <FaUserGraduate /> },
-    { name: "Rahul", role: "ECE, 1st Year", text: "Best platform for VTU students! The 2025 scheme materials are well organized and the SGPA calculator is super helpful.", avatar: <FaUserGraduate /> }
+    { name: "Samson", role: "AIML, 2nd Year", text: "The Applied Chemistry notes from Triple S were incredibly detailed. The previous year papers helped me ace my first semester exam!" },
+    { name: "Priya", role: "CSE, 3rd Year", text: "Triple S has been a lifesaver! The organized materials and easy navigation made my exam preparation so much easier." },
+    { name: "Rahul", role: "ECE, 1st Year", text: "Best platform for VTU students! The 2025 scheme materials are well organized and the SGPA calculator is super helpful." }
   ];
 
   return (
@@ -82,19 +82,18 @@ const Home = () => {
       {/* Search Section */}
       <section className="container mx-auto px-4 -mt-8 relative z-20">
         <div className="max-w-2xl mx-auto">
-          <div className="bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl p-1.5 sm:p-2 border border-white/50">
-            <div className="flex items-center gap-1 sm:gap-2">
-              <FaSearch className="text-slate-400 ml-2 sm:ml-4 text-base sm:text-lg flex-shrink-0" />
+          <div className="bg-white rounded-2xl shadow-xl p-2 border border-slate-100">
+            <div className="flex items-center gap-2">
+              <FaSearch className="text-slate-400 ml-4 text-lg flex-shrink-0" />
               <input
                 type="text"
                 placeholder="Search subjects..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="flex-1 px-2 sm:px-4 py-3 sm:py-4 text-sm sm:text-base text-slate-700 outline-none rounded-xl bg-transparent placeholder:text-slate-400"
+                className="flex-1 px-4 py-4 text-base text-slate-700 outline-none rounded-xl bg-transparent placeholder:text-slate-400"
               />
-              <button className="hidden sm:flex px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:shadow-lg hover:shadow-blue-500/25 transition-all items-center gap-2">
-                <FaSearch className="sm:hidden" />
-                <span className="hidden sm:inline">Search</span>
+              <button className="hidden sm:flex px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors items-center gap-2 font-medium">
+                Search
               </button>
             </div>
           </div>
@@ -117,57 +116,117 @@ const Home = () => {
         <SubjectGrid subjects={getFilteredSubjects()} />
       </section>
 
-      {/* Testimonials Section */}
-      <section id="testimonials" className="py-20 bg-gradient-to-br from-blue-700 via-blue-600 to-blue-500">
+      {/* Testimonials Section - Clean Design */}
+      <section className="py-20 bg-slate-100">
         <div className="container mx-auto px-4">
+          {/* Section Header */}
           <div className="text-center mb-12">
-            <span className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-xl rounded-full text-sm font-medium text-white mb-4">
-              <FaCommentDots /> What Students Say
-            </span>
-            <h2 className="text-4xl font-bold text-white">Student Testimonials</h2>
+            <p className="text-blue-600 font-semibold text-sm uppercase tracking-wider mb-3">Testimonials</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-800">What Students Say</h2>
           </div>
           
-          <div className="max-w-4xl mx-auto relative">
-            <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-10 md:p-14 border border-white/10">
-              <FaQuoteLeft className="text-5xl text-white/20 mb-6" />
+          {/* Testimonials Container */}
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12 relative">
+              {/* Quote Icon */}
+              <FaQuoteLeft className="text-4xl text-blue-100 absolute top-8 left-8" />
               
-              <p className="text-xl md:text-2xl text-white/90 leading-relaxed mb-8 font-light">
-                "{testimonials[currentTestimonial].text}"
-              </p>
-              
-              <div className="flex items-center gap-4">
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center text-3xl">
-                  {testimonials[currentTestimonial].avatar}
-                </div>
-                <div>
-                  <h4 className="text-xl font-bold text-white">{testimonials[currentTestimonial].name}</h4>
-                  <p className="text-white/60">{testimonials[currentTestimonial].role}</p>
+              {/* Testimonial Content */}
+              <div className="text-center pt-8">
+                <p className="text-lg md:text-xl text-slate-600 leading-relaxed mb-8 max-w-2xl mx-auto">
+                  "{testimonials[currentTestimonial].text}"
+                </p>
+                
+                {/* Author Info */}
+                <div className="flex flex-col items-center">
+                  <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center text-white text-2xl mb-4">
+                    <FaUserGraduate />
+                  </div>
+                  <h4 className="text-lg font-bold text-slate-800">{testimonials[currentTestimonial].name}</h4>
+                  <p className="text-slate-500 text-sm">{testimonials[currentTestimonial].role}</p>
                 </div>
               </div>
               
-              {/* Navigation dots */}
-              <div className="flex justify-center gap-3 mt-10">
-                {testimonials.map((_, idx) => (
-                  <button key={idx} onClick={() => setCurrentTestimonial(idx)}
-                    className={`h-2 rounded-full transition-all ${idx === currentTestimonial ? 'bg-white w-8' : 'bg-white/30 w-2 hover:bg-white/50'}`} />
-                ))}
-              </div>
+              {/* Navigation Arrows */}
+              <button 
+                onClick={() => setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length)}
+                className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-slate-100 hover:bg-blue-600 hover:text-white text-slate-600 rounded-full flex items-center justify-center transition-colors"
+              >
+                <FaChevronLeft className="text-sm" />
+              </button>
+              <button 
+                onClick={() => setCurrentTestimonial((prev) => (prev + 1) % testimonials.length)}
+                className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-slate-100 hover:bg-blue-600 hover:text-white text-slate-600 rounded-full flex items-center justify-center transition-colors"
+              >
+                <FaChevronRight className="text-sm" />
+              </button>
             </div>
-
-            {/* Nav buttons */}
-            <button onClick={() => setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length)}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-8 w-12 h-12 bg-white/10 backdrop-blur-xl hover:bg-white/20 rounded-full flex items-center justify-center text-white text-xl border border-white/10">
-              ‹
-            </button>
-            <button onClick={() => setCurrentTestimonial((prev) => (prev + 1) % testimonials.length)}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-8 w-12 h-12 bg-white/10 backdrop-blur-xl hover:bg-white/20 rounded-full flex items-center justify-center text-white text-xl border border-white/10">
-              ›
-            </button>
+            
+            {/* Dots Navigation */}
+            <div className="flex justify-center gap-2 mt-6">
+              {testimonials.map((_, idx) => (
+                <button 
+                  key={idx} 
+                  onClick={() => setCurrentTestimonial(idx)}
+                  className={`h-2.5 rounded-full transition-all ${idx === currentTestimonial ? 'bg-blue-600 w-8' : 'bg-slate-300 w-2.5 hover:bg-slate-400'}`} 
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Scroll to Top Button */}
+      {/* CTA Section - Before Footer */}
+      <section className="relative bg-slate-100">
+        <div 
+          className="bg-gradient-to-r from-blue-600 to-indigo-600 py-12 md:py-16 relative overflow-hidden"
+          style={{ clipPath: 'polygon(0 0, calc(100% - 60px) 0, 100% 60px, 100% 100%, 0 100%)' }}
+        >
+          {/* Decorative Elements */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+          
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="flex flex-col lg:flex-row items-center justify-between gap-10">
+              {/* Left Content */}
+              <div className="max-w-xl text-center lg:text-left">
+                <span className="inline-block px-3 py-1 bg-white/20 text-white text-[10px] font-bold rounded-full mb-4 uppercase tracking-widest">
+                  ✦ Ready to Start?
+                </span>
+                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
+                  Accelerate Your<br className="hidden md:block" /> Engineering Preparation
+                </h2>
+                <div className="flex flex-wrap justify-center lg:justify-start gap-6 text-white/90">
+                  <span className="flex items-center gap-2 text-sm font-medium">
+                    <FaCheck className="text-green-400 font-bold" /> Free Access
+                  </span>
+                  <span className="flex items-center gap-2 text-sm font-medium">
+                    <FaCheck className="text-green-400 font-bold" /> 2025 Scheme
+                  </span>
+                  <span className="flex items-center gap-2 text-sm font-medium">
+                    <FaCheck className="text-green-400 font-bold" /> Expert Notes
+                  </span>
+                </div>
+              </div>
+              
+              {/* Right Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link 
+                  to="/2025-scheme" 
+                  className="px-8 py-4 bg-white text-blue-600 rounded-xl font-bold text-lg hover:bg-blue-50 transition-all flex items-center justify-center gap-2 shadow-xl shadow-black/10"
+                >
+                  Explore Now <FaArrowRight size={16} />
+                </Link>
+                <Link 
+                  to="/contact" 
+                  className="px-8 py-4 bg-white/10 text-white border-2 border-white/20 rounded-xl font-bold text-lg hover:bg-white/20 transition-all flex items-center justify-center gap-2"
+                >
+                  Contact Us <FaArrowRight size={16} />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
     </div>
   );

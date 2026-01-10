@@ -1,45 +1,70 @@
 import { Link } from 'react-router-dom';
-import { FaEnvelope, FaLinkedin, FaGithub, FaInstagram, FaHeart, FaChevronRight } from 'react-icons/fa';
-import { APP_NAME, CONTACT, NAV_LINKS } from '../../utils/constants';
+import { FaEnvelope, FaLinkedin, FaGithub, FaInstagram, FaHeart, FaArrowRight, FaWhatsapp, FaMapMarkerAlt, FaClock } from 'react-icons/fa';
+import { APP_NAME, CONTACT } from '../../utils/constants';
 import logoB from '../../assets/images/triple-s_logo_b.png';
 
 const Footer = () => {
-  return (
-    <footer className="bg-[#0f172a] text-white mt-auto overflow-hidden relative">
-      {/* Decorative Orbs */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2"></div>
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-600/10 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
+  const quickLinks = [
+    { name: 'Home', path: '/' },
+    { name: '2025 Scheme', path: '/2025-scheme' },
+    { name: 'VTU Resources', path: '/vtu' },
+    { name: 'About Us', path: '/about' },
+    { name: 'Contact', path: '/contact' },
+    { name: 'Contribute', path: '/contribute' }
+  ];
 
+  const resources = [
+    { name: 'SGPA Calculator', path: '/vtu' },
+    { name: 'CGPA Calculator', path: '/vtu' },
+    { name: 'Model Papers', path: '/2025-scheme' },
+    { name: 'Previous Papers', path: '/2025-scheme' }
+  ];
+
+  const socialLinks = [
+    { icon: <FaLinkedin size={18} />, href: CONTACT.linkedin, label: 'LinkedIn', bg: 'bg-[#0077b5]' },
+    { icon: <FaGithub size={18} />, href: CONTACT.github, label: 'GitHub', bg: 'bg-[#333]' },
+    { icon: <FaInstagram size={18} />, href: CONTACT.instagram, label: 'Instagram', bg: 'bg-gradient-to-br from-[#f09433] via-[#e6683c] to-[#bc1888]' },
+    { icon: <FaWhatsapp size={18} />, href: `https://wa.me/${CONTACT.whatsapp}`, label: 'WhatsApp', bg: 'bg-[#25D366]' }
+  ];
+
+  return (
+    <footer className="bg-slate-900 text-white mt-auto relative overflow-hidden">
+      {/* Top Gradient Line */}
+      <div className="h-1 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600"></div>
+      
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-[0.02]" style={{
+        backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
+        backgroundSize: '40px 40px'
+      }}></div>
+
+      {/* Main Content */}
       <div className="container mx-auto px-4 py-16 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
+          
           {/* Brand Section */}
-          <div className="space-y-6">
-            <Link to="/" className="flex items-center gap-3">
+          <div className="lg:col-span-1">
+            <Link to="/" className="inline-block mb-6">
               <img 
                 src={logoB} 
                 alt="Triple S Logo" 
-                className="h-12 w-auto brightness-110"
+                className="h-10 w-auto brightness-0 invert opacity-90 hover:opacity-100 transition-opacity"
               />
-              <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-400">
-                {APP_NAME}
-              </span>
             </Link>
-            <p className="text-slate-400 leading-relaxed max-w-sm">
-              The ultimate resource hub for VTU engineering students. Providing quality notes, 
-              model papers, and calculators to help you excel in your academic journey.
+            <p className="text-slate-400 text-sm leading-relaxed mb-6">
+              Your one-stop platform for VTU engineering study materials. Quality notes, papers & tools for academic excellence.
             </p>
-            <div className="flex gap-4">
-              {[
-                { icon: <FaLinkedin size={18} />, href: CONTACT.linkedin, color: 'hover:bg-blue-600' },
-                { icon: <FaGithub size={18} />, href: CONTACT.github, color: 'hover:bg-slate-700' },
-                { icon: <FaInstagram size={18} />, href: CONTACT.instagram, color: 'hover:bg-pink-600' }
-              ].map((social, i) => (
+            
+            {/* Social Links */}
+            <div className="flex gap-2">
+              {socialLinks.map((social) => (
                 <a
-                  key={i}
+                  key={social.label}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center transition-all duration-300 ${social.color} hover:-translate-y-1 border border-white/10`}
+                  className={`w-9 h-9 ${social.bg} rounded-lg flex items-center justify-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg`}
+                  aria-label={social.label}
                 >
                   {social.icon}
                 </a>
@@ -47,85 +72,129 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Quick Explore */}
+          {/* Quick Links */}
           <div>
-            <h3 className="text-lg font-bold mb-6 flex items-center gap-2">
-              <span className="w-1.5 h-6 bg-blue-500 rounded-full"></span>
-              Quick Explore
+            <h3 className="text-white font-semibold text-sm uppercase tracking-wider mb-6">
+              Quick Links
             </h3>
-            <ul className="space-y-4">
-              {[
-                { name: 'Home', path: '/' },
-                { name: '2025 Scheme', path: '/2025-scheme' },
-                { name: 'VTU Resources', path: '/vtu' },
-                { name: 'Contribute', path: '/contribute' },
-                { name: 'About Us', path: '/about' }
-              ].map((link) => (
+            <ul className="space-y-3">
+              {quickLinks.map((link) => (
                 <li key={link.name}>
                   <Link 
                     to={link.path} 
-                    className="text-slate-400 hover:text-blue-400 transition-all flex items-center gap-2 group"
+                    className="text-slate-400 hover:text-white text-sm transition-colors inline-flex items-center gap-2 group"
                   >
-                    <FaChevronRight className="text-[10px] opacity-0 -ml-2 group-hover:opacity-100 group-hover:ml-0 transition-all" />
-                    {link.name}
+                    <FaArrowRight className="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity text-blue-400" />
+                    <span className="group-hover:translate-x-1 transition-transform">{link.name}</span>
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Popular Subjects */}
-          <div className="hidden lg:block">
-            <h3 className="text-lg font-bold mb-6 flex items-center gap-2">
-              <span className="w-1.5 h-6 bg-indigo-500 rounded-full"></span>
-              Popular Hubs
+          {/* Resources */}
+          <div>
+            <h3 className="text-white font-semibold text-sm uppercase tracking-wider mb-6">
+              Resources
             </h3>
-            <div className="flex flex-wrap gap-2">
-              {['Mathematics', 'Physics', 'Chemistry', 'C-Programming', 'Electronics', 'Mechanical', 'CAED'].map((tag) => (
-                <span key={tag} className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg text-xs text-slate-300 hover:bg-white/10 transition-colors cursor-pointer">
-                  {tag}
-                </span>
+            <ul className="space-y-3">
+              {resources.map((link, idx) => (
+                <li key={idx}>
+                  <Link 
+                    to={link.path} 
+                    className="text-slate-400 hover:text-white text-sm transition-colors inline-flex items-center gap-2 group"
+                  >
+                    <FaArrowRight className="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity text-blue-400" />
+                    <span className="group-hover:translate-x-1 transition-transform">{link.name}</span>
+                  </Link>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
 
-          {/* Contact Support */}
-          <div className="space-y-6">
-            <h3 className="text-lg font-bold mb-6 flex items-center gap-2">
-              <span className="w-1.5 h-6 bg-emerald-500 rounded-full"></span>
-              Contact Support
+          {/* Contact Section - Enhanced */}
+          <div>
+            <h3 className="text-white font-semibold text-sm uppercase tracking-wider mb-6">
+              Get In Touch
             </h3>
+            
             <div className="space-y-4">
+              {/* Email */}
               <a 
                 href={`mailto:${CONTACT.email}`}
-                className="group flex items-start gap-4 p-4 bg-white/5 rounded-2xl border border-white/10 hover:border-blue-500/50 transition-all"
+                className="flex items-start gap-3 group"
               >
-                <div className="w-10 h-10 bg-blue-500/20 rounded-xl flex items-center justify-center text-blue-400 group-hover:bg-blue-500 group-hover:text-white transition-all">
-                  <FaEnvelope />
+                <div className="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-500 transition-colors">
+                  <FaEnvelope className="text-blue-400 group-hover:text-white transition-colors" />
                 </div>
                 <div>
-                  <p className="text-xs text-slate-500 uppercase font-bold tracking-wider mb-1">Email Us</p>
-                  <p className="text-sm text-slate-200 font-medium break-all">{CONTACT.email}</p>
+                  <p className="text-xs text-slate-500 mb-0.5">Email</p>
+                  <p className="text-sm text-slate-300 group-hover:text-white transition-colors break-all">{CONTACT.email}</p>
                 </div>
               </a>
-              <div className="text-xs text-slate-500 leading-relaxed italic">
-                * We usually respond within 24 hours. Your contributions help keep this platform free!
+
+              {/* WhatsApp */}
+              <a 
+                href={`https://wa.me/${CONTACT.whatsapp}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-3 group"
+              >
+                <div className="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center flex-shrink-0 group-hover:bg-green-500 transition-colors">
+                  <FaWhatsapp className="text-green-400 group-hover:text-white transition-colors" />
+                </div>
+                <div>
+                  <p className="text-xs text-slate-500 mb-0.5">WhatsApp</p>
+                  <p className="text-sm text-slate-300 group-hover:text-white transition-colors">{CONTACT.whatsapp}</p>
+                </div>
+              </a>
+
+              {/* Location */}
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center flex-shrink-0">
+                  <FaMapMarkerAlt className="text-purple-400" />
+                </div>
+                <div>
+                  <p className="text-xs text-slate-500 mb-0.5">Location</p>
+                  <p className="text-sm text-slate-300">Karnataka, India</p>
+                </div>
+              </div>
+
+              {/* Response Time */}
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center flex-shrink-0">
+                  <FaClock className="text-amber-400" />
+                </div>
+                <div>
+                  <p className="text-xs text-slate-500 mb-0.5">Response Time</p>
+                  <p className="text-sm text-slate-300">Within 24 hours</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Bottom Credits */}
-        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="text-slate-500 text-sm">
-            &copy; {new Date().getFullYear()} <span className="text-slate-300 font-bold">{APP_NAME} Hub</span>. All rights reserved.
-          </div>
-          <div className="flex items-center gap-2 text-sm text-slate-400">
-            <span>Crafted with</span>
-            <FaHeart className="text-red-500 animate-pulse" />
+        {/* Divider */}
+        <div className="h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent my-10"></div>
+
+        {/* Bottom Bar */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-slate-500 text-sm text-center md:text-left">
+            © {new Date().getFullYear()} {APP_NAME}. All rights reserved.
+          </p>
+          <p className="text-slate-500 text-sm flex items-center gap-2">
+            <span>Made with</span>
+            <FaHeart className="text-red-500 text-xs" />
             <span>by</span>
-            <a href={CONTACT.github} target="_blank" rel="noopener noreferrer" className="text-blue-400 font-bold hover:underline">Srujan S Shetty</a>
-          </div>
+            <a 
+              href={CONTACT.instagram} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="text-slate-300 hover:text-white transition-colors"
+            >
+              Srujan & Webotrex
+            </a>
+          </p>
         </div>
       </div>
     </footer>

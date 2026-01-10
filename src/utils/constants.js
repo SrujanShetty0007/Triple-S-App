@@ -9,7 +9,7 @@ export const CONTACT = {
     whatsapp: "+918217358117",
     linkedin: "https://www.linkedin.com/in/srujan-shetty0007/",
     github: "https://github.com/srujanshetty0007",
-    instagram: "https://www.instagram.com/srujan_shetty_0007/"
+    instagram: "https://www.instagram.com/srujan_shetty0007/"
 };
 
 // Navigation links (updated with Contribute)
