@@ -18,7 +18,7 @@ const SEO = ({
   description = 'Triple S provides comprehensive VTU notes, model papers, previous year question papers, and study materials for all engineering branches and semesters. Free downloads available for CSE, ISE, ECE, Mechanical, Civil, and all VTU 2022 scheme subjects.',
   keywords = 'VTU notes, VTU question papers, VTU model papers, engineering notes pdf, VTU syllabus, VTU CBCS scheme, VTU 2022 scheme, previous year papers VTU, semester notes, BE notes, BTech notes, student study support, VTU CSE notes, VTU ISE notes, VTU ECE notes, VTU mechanical notes, VTU civil notes, Karnataka engineering, exam preparation, VTU study materials, free engineering notes, VTU PYQ, engineering exam notes, VTU results, VTU latest updates, engineering question bank, semester wise notes, VTU online resources',
   url = 'https://triple-s.netlify.app',
-  image = 'https://triple-s.netlify.app/assets/images/logo1.png',
+  image = 'https://triple-s.netlify.app/favicon_io/android-chrome-512x512.png',
   type = 'website',
   author = 'Srujan S Shetty',
   schema
