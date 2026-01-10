@@ -1,4 +1,17 @@
 import { Helmet } from 'react-helmet-async';
+import { useEffect } from 'react';
+
+// Google Analytics tracking ID from environment variable
+const GA_TRACKING_ID = import.meta.env.VITE_GA_TRACKING_ID || 'G-9NPTSX512J';
+
+// Track page views
+const trackPageView = (url) => {
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('config', GA_TRACKING_ID, {
+      page_path: url,
+    });
+  }
+};
 
 const SEO = ({
   title = 'Triple S - Student Study Support',
@@ -11,8 +24,24 @@ const SEO = ({
 }) => {
   const fullTitle = title.includes('Triple S') ? title : `${title} | Triple S`;
 
+  // Track page view when component mounts
+  useEffect(() => {
+    trackPageView(url);
+  }, [url]);
+
   return (
     <Helmet>
+      {/* Google Analytics */}
+      <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}></script>
+      <script>
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${GA_TRACKING_ID}');
+        `}
+      </script>
+
       {/* Primary Meta Tags */}
       <title>{fullTitle}</title>
       <meta name="title" content={fullTitle} />

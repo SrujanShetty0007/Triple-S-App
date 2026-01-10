@@ -1,22 +1,44 @@
 // Firebase Configuration and Initialization
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { getAnalytics } from 'firebase/analytics';
+import { getAnalytics, isSupported } from 'firebase/analytics';
 
-// Firebase configuration (from existing HTML project)
+// Firebase configuration using environment variables
 const firebaseConfig = {
-    apiKey: "AIzaSyCHZcDv3pXIU9J3CASXi3sM-V7mZsMuqBM",
-    authDomain: "triple-s-bd006.firebaseapp.com",
-    projectId: "triple-s-bd006",
-    storageBucket: "triple-s-bd006.firebasestorage.app",
-    messagingSenderId: "933483210420",
-    appId: "1:933483210420:web:66fde1b5571ef1741299e1",
-    measurementId: "G-TPHZ0H6L5J"
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+    appId: import.meta.env.VITE_FIREBASE_APP_ID,
+    measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
+
+// Validate required environment variables
+const requiredEnvVars = [
+    'VITE_FIREBASE_API_KEY',
+    'VITE_FIREBASE_AUTH_DOMAIN',
+    'VITE_FIREBASE_PROJECT_ID'
+];
+
+requiredEnvVars.forEach(envVar => {
+    if (!import.meta.env[envVar]) {
+        console.warn(`Warning: Missing environment variable ${envVar}. Check your .env file.`);
+    }
+});
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const analytics = getAnalytics(app);
+
+// Initialize Analytics only if supported (avoids errors in some environments)
+let analytics = null;
+isSupported().then(supported => {
+    if (supported) {
+        analytics = getAnalytics(app);
+    }
+}).catch(() => {
+    console.warn('Firebase Analytics not supported in this environment');
+});
 
 export { app, auth, analytics };
