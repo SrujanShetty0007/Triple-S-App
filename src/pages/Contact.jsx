@@ -24,10 +24,27 @@ const Contact = () => {
   return (
     <div className="min-h-screen bg-slate-50">
       <SEO 
-        title="Contact Us - Triple S | Get In Touch"
-        description="Have questions about Triple S? Contact us via email or WhatsApp. We'd love to hear from students and collaborators."
-        keywords="contact Triple S, student support contact, engineering notes help, Triple S email, Triple S WhatsApp"
+        title="Contact Triple S | VTU Study Support | Get Help & Share Feedback"
+        description="Contact Triple S for VTU study materials support, report issues, share feedback, or contribute notes. Reach us via email at triples.studies.edu@gmail.com or WhatsApp. We respond within 24-48 hours to all student queries."
+        keywords="contact Triple S, VTU support contact, engineering student helpdesk, report issue VTU notes, contribute study materials, triples email, student feedback, VTU study material inquiry, academic support contact, engineering notes help"
         url="https://triple-s.netlify.app/contact"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "ContactPage",
+          "name": "Contact Triple S",
+          "description": "Get in touch with Triple S for VTU study materials support",
+          "mainEntity": {
+            "@type": "Organization",
+            "name": "Triple S - Student Study Support",
+            "email": "triples.studies.edu@gmail.com",
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "contactType": "Customer Service",
+              "email": "triples.studies.edu@gmail.com",
+              "availableLanguage": ["English", "Kannada", "Hindi"]
+            }
+          }
+        }}
       />
       <HeroSection 
         badge={<div className="flex items-center gap-2"><FaComments className="text-blue-400" /> Get In Touch</div>} 

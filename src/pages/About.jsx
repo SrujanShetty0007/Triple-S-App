@@ -16,10 +16,32 @@ const About = () => {
   return (
     <div className="min-h-screen bg-slate-50">
       <SEO 
-        title="About Triple S - Student Study Support | Our Mission & Story"
-        description="Learn about Triple S - an open-source platform dedicated to helping engineering students excel by providing organized study materials, notes and exam papers."
-        keywords="about Triple S, student study support, engineering education platform, academic resources, study materials, Srujan S Shetty"
+        title="About Triple S | VTU Student Study Support Platform | Our Mission & Story"
+        description="Triple S (Student Study Support) is a comprehensive open-source platform providing free VTU engineering study materials, notes, model papers, and PYQs for all branches. Created by engineering students for engineering students. Learn about our mission to democratize education."
+        keywords="about Triple S, student study support, VTU platform, engineering education, free study materials, Srujan S Shetty, educational technology, MIT Moodbidri, open source education, VTU resources platform, engineering notes platform, academic support, student community"
         url="https://triple-s.netlify.app/about"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "AboutPage",
+          "name": "About Triple S - Student Study Support",
+          "description": "Learn about Triple S - an open-source platform dedicated to helping VTU engineering students excel",
+          "mainEntity": {
+            "@type": "Organization",
+            "name": "Triple S - Student Study Support",
+            "founder": {
+              "@type": "Person",
+              "name": "Srujan S Shetty",
+              "jobTitle": "Founder & Developer",
+              "affiliation": "Moodlakatte Institute of Technology"
+            },
+            "foundingDate": "2024",
+            "url": "https://triple-s.netlify.app",
+            "sameAs": [
+              "https://github.com/srujanshetty0007",
+              "https://www.linkedin.com/in/srujan-shetty0007/"
+            ]
+          }
+        }}
       />
       <HeroSection 
         badge={<div className="flex items-center gap-2"><FaBookOpen className="text-blue-400" /> About Us</div>} 

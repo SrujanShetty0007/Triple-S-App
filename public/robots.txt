@@ -1,13 +1,9 @@
-# https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Allow: /
+Disallow: /pdf-viewer
 
-# Sitemap location
+# Sitemaps
 Sitemap: https://triple-s.netlify.app/sitemap.xml
 
-# Crawl-delay suggestion
+# Crawl-delay
 Crawl-delay: 1
-
-# Disallow admin or private paths (if any)
-Disallow: /api/
-Disallow: /firebase/

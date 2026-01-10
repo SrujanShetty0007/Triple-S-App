@@ -61,10 +61,32 @@ const VTU = () => {
   return (
     <div className="min-h-screen bg-slate-50">
       <SEO 
-        title="VTU Resources & Tools | SGPA CGPA Calculator, Results"
-        description="Access VTU resources including SGPA Calculator, CGPA Calculator, exam results, model question papers, and official VTU circulars. Your one-stop VTU portal."
-        keywords="VTU, SGPA calculator, CGPA calculator, VTU results, VTU exam, Visvesvaraya Technological University, VTU grade calculator"
+        title="VTU Portal | SGPA CGPA Calculator, Results, Official Resources & Syllabus"
+        description="Comprehensive VTU portal for engineering students. Access free SGPA calculator, CGPA calculator, VTU exam results checker, model question papers, exam timetables, official circulars, VTU syllabus, and grading system information. Quick and accurate tools for all VTU students."
+        keywords="VTU SGPA calculator online, VTU CGPA calculator, VTU results 2024, VTU results checker, VTU exam results,  VTU grade calculator, VTU grading system, Visvesvaraya Technological University, VTU official resources, VTU model papers, VTU timetable, VTU syllabus download, VTU notifications, Karnataka VTU portal"
         url="https://triple-s.netlify.app/vtu"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "How to calculate SGPA in VTU?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Use our SGPA calculator tool to easily calculate your Semester Grade Point Average. Enter your subject marks and credits, and our tool will instantly compute your SGPA based on the VTU grading system."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is the VTU grading system?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "VTU follows a 10-point grading scale where 90-100 = 10 points (Outstanding), 80-89 = 9 points (Excellent), 70-79 = 8 points (Very Good), 60-69 = 7 points (Good), 50-59 = 6 points (Above Average), 45-49 = 5 points (Average), 40-44 = 4 points (Pass), Below 40 = 0 points (Fail)."
+              }
+            }
+          ]
+        }}
       />
       <HeroSection 
         badge={<div className="flex items-center gap-2"><FaUniversity className="text-blue-300" /> VTU Portal</div>} 

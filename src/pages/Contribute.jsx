@@ -33,10 +33,23 @@ const Contribute = () => {
   return (
     <div className="min-h-screen bg-slate-50">
       <SEO 
-        title="Contribute Study Materials | Share Your Knowledge"
-        description="Help fellow engineering students by sharing your study materials, notes, model papers, and previous year question papers on Triple S."
-        keywords="contribute study materials, share notes, upload engineering notes, help students, academic contribution"
+        title="Contribute Study Materials to Triple S | Share Notes, Papers & Help Students"
+        description="Help thousands of VTU engineering students by contributing your study materials, notes, model papers, and previous year question papers. Free platform for students to share knowledge. Upload PDF notes, exam papers, and study guides. Build your academic portfolio by sharing resources."
+        keywords="contribute study materials VTU, upload engineering notes, share VTU notes, donate study materials, academic contribution, help engineering students, upload model papers, share PYQ, contribute to Triple S, student knowledge sharing, submit notes online"
         url="https://triple-s.netlify.app/contribute"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "name": "Contribute Study Materials",
+          "description": "Help fellow engineering students by sharing your study materials",
+          "potentialAction": {
+            "@type": "ShareAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "https://triple-s.netlify.app/contribute"
+            }
+          }
+        }}
       />
       <HeroSection 
         badge={<div className="flex items-center gap-2"><FaCloudUploadAlt className="text-blue-400" /> Share Your Knowledge</div>} 

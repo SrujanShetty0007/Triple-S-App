@@ -32,10 +32,39 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-slate-50">
       <SEO 
-        title="Triple S - Student Study Support | Engineering Study Materials"
-        description="Triple S - Student Study Support provides curated notes, model papers, and previous year question papers for engineering students to excel in their exams."
-        keywords="student study support, engineering notes, model papers, previous year papers, exam preparation, VTU, engineering education, BE notes, BTech notes"
-        url="https://triple-s.netlify.app/"
+        title="Triple S | VTU Engineering Notes, Model Papers & Previous Year Question Papers"
+        description="Download free VTU notes, model papers, and previous year question papers for all engineering branches. Complete study materials for CSE, ISE, ECE, Mechanical, Civil - VTU 2022 scheme. Latest syllabus, PYQs, and semester-wise resources for engineering students."
+        keywords="VTU notes pdf download, VTU previous year papers, VTU model papers, engineering study materials, VTU 2022 scheme notes, VTU question papers with solutions, VTU CSE notes, VTU ISE notes, VTU ECE notes, free engineering notes, semester wise notes VTU, VTU syllabus, VTU CBCS scheme, BE engineering notes, student study support, Karnataka VTU, engineering exam preparation, VTU resources"
+        url="https://triple-s.netlify.app"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "EducationalOrganization",
+          "name": "Triple S - Student Study Support",
+          "alternateName": "Triple S",
+          "url": "https://triple-s.netlify.app",
+          "logo": "https://triple-s.netlify.app/assets/images/logo1.png",
+          "description": "Triple S provides comprehensive VTU engineering study materials including notes, model papers, and previous year question papers for all branches and semesters.",
+          "foundingDate": "2024",
+          "founder": {
+            "@type": "Person",
+            "name": "Srujan S Shetty"
+          },
+          "address": {
+            "@type": "PostalAddress",
+            "addressRegion": "Karnataka",
+            "addressCountry": "IN"
+          },
+          "areaServed": {
+            "@type": "Country",
+            "name": "India"
+          },
+          "knowsAbout": ["Engineering Education", "VTU Curriculum", "Engineering Study Materials", "Academic Resources"],
+          "educationalCredentialAwarded": "Study Materials and Resources",
+          "sameAs": [
+            "https://github.com/srujanshetty0007",
+            "https://www.linkedin.com/in/srujan-shetty0007/"
+          ]
+        }}
       />
       <HeroSection title={APP_NAME} subtitle={APP_DESCRIPTION}>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">

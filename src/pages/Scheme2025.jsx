@@ -30,10 +30,20 @@ const Scheme2025 = () => {
   return (
     <div className="min-h-screen bg-slate-50">
       <SEO 
-        title="VTU 2025 Scheme | New Curriculum Study Materials"
-        description="Access comprehensive study materials for the new VTU 2025 scheme curriculum. Notes, model papers, and previous year papers for all semesters."
-        keywords="VTU 2025 scheme, new VTU curriculum, 2025 scheme notes, VTU new syllabus, engineering 2025 scheme"
+        title="VTU 2025 Scheme Notes & Study Materials | New Curriculum Resources"
+        description="Access comprehensive study materials for VTU 2025 scheme (new curriculum). Download free notes, model papers, and previous year question papers for all semesters. Updated materials for the latest VTU syllabus, semester-wise resources, and complete coverage of all engineering branches."
+        keywords="VTU 2025 scheme notes, VTU new syllabus 2025, 2025 scheme study materials, VTU latest curriculum, VTU new scheme subjects, VTU 2025 syllabus pdf, engineering 2025 scheme notes, VTU updated curriculum, semester notes 2025 scheme, VTU new pattern questions"
         url="https://triple-s.netlify.app/2025-scheme"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          "name": "VTU 2025 Scheme Study Materials",
+          "description": "Comprehensive collection of study materials for VTU 2025 scheme",
+          "about": {
+            "@type": "EducationalOccupationalProgram",
+            "name": "VTU 2025 Scheme Engineering Curriculum"
+          }
+        }}
       />
       <HeroSection 
         badge={<div className="flex items-center gap-2"><FaGraduationCap className="text-blue-400" /> VTU 2025 Scheme</div>} 
