@@ -1,0 +1,44 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Default deny all - Security first approach
+    match /{document=**} {
+      allow read, write: if false;
+    }
+    
+    // User profiles - users can only read/write their own data
+    match /users/{userId} {
+      allow read: if request.auth != null && request.auth.uid == userId;
+      allow create: if request.auth != null && request.auth.uid == userId;
+      allow update: if request.auth != null && request.auth.uid == userId;
+      allow delete: if false; // Never allow account deletion via client
+    }
+    
+    // Study materials - public read, admin-only write
+    match /materials/{materialId} {
+      allow read: if true; // Public access for educational content
+      allow write: if request.auth != null && 
+                      request.auth.token.admin == true;
+    }
+    
+    // Contributions - authenticated users can create, admins can moderate
+    match /contributions/{contribId} {
+      allow read: if request.auth != null;
+      allow create: if request.auth != null && 
+                       request.resource.data.userId == request.auth.uid &&
+                       request.resource.data.keys().hasAll(['userId', 'content', 'timestamp']);
+      allow update, delete: if request.auth != null && 
+                                request.auth.token.admin == true;
+    }
+    
+    // User activity logs - write-only, read for admins
+    match /activity/{activityId} {
+      allow read: if request.auth != null && 
+                     request.auth.token.admin == true;
+      allow create: if request.auth != null;
+      allow update, delete: if false;
+    }
+  }
+}

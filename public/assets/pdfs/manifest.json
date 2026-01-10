@@ -1,0 +1,215 @@
+{
+  "2025-scheme": {
+    "sem1": {
+      "ai-applications": {
+        "model-papers": [],
+        "notes": [],
+        "previous-papers": []
+      },
+      "applied-chemistry-cse": {
+        "model-papers": [
+          {
+            "filename": "Applied Chemistry for CSE.pdf",
+            "name": "Applied Chemistry For Cse",
+            "path": "/assets/pdfs/2025-scheme/sem1/applied-chemistry-cse/model-papers/Applied Chemistry for CSE.pdf"
+          }
+        ],
+        "notes": [
+          {
+            "filename": "1BCHES102 Module-3.pdf",
+            "name": "1bches102 Module 3",
+            "path": "/assets/pdfs/2025-scheme/sem1/applied-chemistry-cse/notes/1BCHES102 Module-3.pdf"
+          },
+          {
+            "filename": "1BCHES102 Module4.pdf",
+            "name": "1bches102 Module4",
+            "path": "/assets/pdfs/2025-scheme/sem1/applied-chemistry-cse/notes/1BCHES102 Module4.pdf"
+          },
+          {
+            "filename": "1BCHES102 Module5.pdf",
+            "name": "1bches102 Module5",
+            "path": "/assets/pdfs/2025-scheme/sem1/applied-chemistry-cse/notes/1BCHES102 Module5.pdf"
+          },
+          {
+            "filename": "Chemistry Module 1.pdf",
+            "name": "Chemistry Module 1",
+            "path": "/assets/pdfs/2025-scheme/sem1/applied-chemistry-cse/notes/Chemistry Module 1.pdf"
+          },
+          {
+            "filename": "Chemistry-VTU_HandBook.pdf",
+            "name": "Chemistry Vtu Handbook",
+            "path": "/assets/pdfs/2025-scheme/sem1/applied-chemistry-cse/notes/Chemistry-VTU_HandBook.pdf"
+          },
+          {
+            "filename": "Module-2.pdf",
+            "name": "Module 2",
+            "path": "/assets/pdfs/2025-scheme/sem1/applied-chemistry-cse/notes/Module-2.pdf"
+          }
+        ],
+        "previous-papers": []
+      },
+      "applied-mathematics-cse": {
+        "model-papers": [],
+        "notes": [],
+        "previous-papers": []
+      },
+      "applied-mathematics-ece": {
+        "model-papers": [],
+        "notes": [],
+        "previous-papers": []
+      },
+      "applied-physics-ece": {
+        "model-papers": [],
+        "notes": [
+          {
+            "filename": "1BPHEC102 Quantum Physics and Electronic Sensors EE Stream Model Question Paper.pdf",
+            "name": "1bphec102 Quantum Physics And Electronic Sensors Ee Stream Model Question Paper",
+            "path": "/assets/pdfs/2025-scheme/sem1/applied-physics-ece/notes/1BPHEC102 Quantum Physics and Electronic Sensors EE Stream Model Question Paper.pdf"
+          },
+          {
+            "filename": "25S-CSE&ECE-M1-QUANTUM MECHANICS-KRA-FINAL.pdf",
+            "name": "25s Cse&ece M1 Quantum Mechanics Kra Final",
+            "path": "/assets/pdfs/2025-scheme/sem1/applied-physics-ece/notes/25S-CSE&ECE-M1-QUANTUM MECHANICS-KRA-FINAL.pdf"
+          },
+          {
+            "filename": "25S-CSE&ECE-M2-Electrical Properties of Metals and Semiconductors-KRA-FINAL.pdf",
+            "name": "25s Cse&ece M2 Electrical Properties Of Metals And Semiconductors Kra Final",
+            "path": "/assets/pdfs/2025-scheme/sem1/applied-physics-ece/notes/25S-CSE&ECE-M2-Electrical Properties of Metals and Semiconductors-KRA-FINAL.pdf"
+          },
+          {
+            "filename": "25S-CSE&ECE-M3-Superconductivity-KRA-FINAL.pdf",
+            "name": "25s Cse&ece M3 Superconductivity Kra Final",
+            "path": "/assets/pdfs/2025-scheme/sem1/applied-physics-ece/notes/25S-CSE&ECE-M3-Superconductivity-KRA-FINAL.pdf"
+          },
+          {
+            "filename": "25S-CSE&ECE-M4-PHOTONICS-KRA - FINAL.pdf",
+            "name": "25s Cse&ece M4 Photonics Kra   Final",
+            "path": "/assets/pdfs/2025-scheme/sem1/applied-physics-ece/notes/25S-CSE&ECE-M4-PHOTONICS-KRA - FINAL.pdf"
+          },
+          {
+            "filename": "25S-ECE-M5-Semiconductor devices and Sensors-KRA.pdf",
+            "name": "25s Ece M5 Semiconductor Devices And Sensors Kra",
+            "path": "/assets/pdfs/2025-scheme/sem1/applied-physics-ece/notes/25S-ECE-M5-Semiconductor devices and Sensors-KRA.pdf"
+          },
+          {
+            "filename": "Superconductivity.pdf",
+            "name": "Superconductivity",
+            "path": "/assets/pdfs/2025-scheme/sem1/applied-physics-ece/notes/Superconductivity.pdf"
+          }
+        ],
+        "previous-papers": []
+      },
+      "applied-physics-ise": {
+        "model-papers": [],
+        "notes": [
+          {
+            "filename": "25S-CSE&ECE-M1-QUANTUM MECHANICS-KRA-FINAL.pdf",
+            "name": "25s Cse&ece M1 Quantum Mechanics Kra Final",
+            "path": "/assets/pdfs/2025-scheme/sem1/applied-physics-ise/notes/25S-CSE&ECE-M1-QUANTUM MECHANICS-KRA-FINAL.pdf"
+          },
+          {
+            "filename": "25S-CSE&ECE-M2-Electrical Properties of Metals and Semiconductors-KRA-FINAL.pdf",
+            "name": "25s Cse&ece M2 Electrical Properties Of Metals And Semiconductors Kra Final",
+            "path": "/assets/pdfs/2025-scheme/sem1/applied-physics-ise/notes/25S-CSE&ECE-M2-Electrical Properties of Metals and Semiconductors-KRA-FINAL.pdf"
+          },
+          {
+            "filename": "25S-CSE&ECE-M3-Superconductivity-KRA-FINAL.pdf",
+            "name": "25s Cse&ece M3 Superconductivity Kra Final",
+            "path": "/assets/pdfs/2025-scheme/sem1/applied-physics-ise/notes/25S-CSE&ECE-M3-Superconductivity-KRA-FINAL.pdf"
+          },
+          {
+            "filename": "25S-CSE&ECE-M4-PHOTONICS-KRA - FINAL.pdf",
+            "name": "25s Cse&ece M4 Photonics Kra   Final",
+            "path": "/assets/pdfs/2025-scheme/sem1/applied-physics-ise/notes/25S-CSE&ECE-M4-PHOTONICS-KRA - FINAL.pdf"
+          },
+          {
+            "filename": "25S-CSE-M5-QUANTUM COMPUTING-KRA-FINAL.pdf",
+            "name": "25s Cse M5 Quantum Computing Kra Final",
+            "path": "/assets/pdfs/2025-scheme/sem1/applied-physics-ise/notes/25S-CSE-M5-QUANTUM COMPUTING-KRA-FINAL.pdf"
+          },
+          {
+            "filename": "Superconductivity.pdf",
+            "name": "Superconductivity",
+            "path": "/assets/pdfs/2025-scheme/sem1/applied-physics-ise/notes/Superconductivity.pdf"
+          }
+        ],
+        "previous-papers": []
+      },
+      "c-programming": {
+        "model-papers": [],
+        "notes": [],
+        "previous-papers": []
+      },
+      "c-programming-lab": {
+        "model-papers": [],
+        "notes": [],
+        "previous-papers": []
+      },
+      "caed-ece": {
+        "model-papers": [],
+        "notes": [],
+        "previous-papers": []
+      },
+      "caed-ise": {
+        "model-papers": [],
+        "notes": [],
+        "previous-papers": []
+      },
+      "communication-skills": {
+        "model-papers": [],
+        "notes": [],
+        "previous-papers": []
+      },
+      "constitution-ethics": {
+        "model-papers": [],
+        "notes": [],
+        "previous-papers": []
+      },
+      "ece-fundamentals": {
+        "model-papers": [],
+        "notes": [],
+        "previous-papers": []
+      },
+      "ece-fundamentals-lab": {
+        "model-papers": [],
+        "notes": [],
+        "previous-papers": []
+      },
+      "electrical-engineering": {
+        "model-papers": [],
+        "notes": [],
+        "previous-papers": []
+      },
+      "electronics-communication": {
+        "model-papers": [],
+        "notes": [],
+        "previous-papers": []
+      },
+      "idt-lab": {
+        "model-papers": [],
+        "notes": [],
+        "previous-papers": []
+      },
+      "information-technology": {
+        "model-papers": [],
+        "notes": [],
+        "previous-papers": []
+      },
+      "kannada": {
+        "model-papers": [],
+        "notes": [],
+        "previous-papers": []
+      },
+      "python-programming": {
+        "model-papers": [],
+        "notes": [],
+        "previous-papers": []
+      },
+      "soft-skills": {
+        "model-papers": [],
+        "notes": [],
+        "previous-papers": []
+      }
+    }
+  }
+}
