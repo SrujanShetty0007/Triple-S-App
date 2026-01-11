@@ -6,7 +6,7 @@ import {
   FaEnvelope, FaChevronRight, FaUserCircle
 } from 'react-icons/fa';
 import { APP_NAME, NAV_LINKS } from '../../utils/constants';
-import logoB from '../../assets/images/triple-s_logo_b.png';
+import logoB from '../../assets/images/triple-s_logo_main.png';
 import LoginModal from '../auth/LoginModal';
 import { useAuth } from '../../contexts/AuthContext';
 
@@ -84,6 +84,7 @@ const Header = () => {
                 alt="Triple S Logo" 
                 className={`h-10 md:h-12 w-auto object-contain transition-all duration-300 ${scrolled ? 'scale-90' : 'scale-100'}`}
               />
+              <span className="text-xl md:text-2xl font-bold tracking-tight text-gray-800" style={{fontFamily: "'Outfit', sans-serif"}}>Triple S</span>
             </Link>
 
             {/* Desktop Navigation */}
@@ -263,7 +264,7 @@ const Header = () => {
           <div className="p-6 border-b bg-gradient-to-r from-blue-50 to-white flex items-center justify-between">
             <div className="flex items-center gap-2">
               <img src={logoB} alt="Logo" className="h-8 w-auto" />
-              <span className="font-bold text-blue-600">Menu</span>
+              <span className="font-bold tracking-tight text-blue-600" style={{fontFamily: "'Outfit', sans-serif"}}>Triple S</span>
             </div>
             <button 
               onClick={toggleMobileMenu} 

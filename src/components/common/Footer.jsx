@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { FaEnvelope, FaLinkedin, FaGithub, FaInstagram, FaHeart, FaArrowRight, FaWhatsapp, FaMapMarkerAlt, FaClock } from 'react-icons/fa';
 import { APP_NAME, CONTACT } from '../../utils/constants';
-import logoB from '../../assets/images/triple-s_logo_b.png';
+import logoB from '../../assets/images/triple-s_logo_main.png';
 
 const Footer = () => {
   const quickLinks = [
@@ -44,12 +44,13 @@ const Footer = () => {
           
           {/* Brand Section */}
           <div className="lg:col-span-1">
-            <Link to="/" className="inline-block mb-6">
+            <Link to="/" className="inline-flex items-center gap-3 mb-6 hover:opacity-100 transition-opacity">
               <img 
                 src={logoB} 
                 alt="Triple S Logo" 
-                className="h-10 w-auto brightness-0 invert opacity-90 hover:opacity-100 transition-opacity"
+                className="h-10 w-auto brightness-0 invert opacity-90"
               />
+              <span className="text-xl font-bold tracking-tight text-white" style={{fontFamily: "'Outfit', sans-serif"}}>Triple S</span>
             </Link>
             <p className="text-slate-400 text-sm leading-relaxed mb-6">
               Your one-stop platform for VTU engineering study materials. Quality notes, papers & tools for academic excellence.
