@@ -102,41 +102,50 @@ const Home = () => {
           </div>
 
           <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            {schemes.map((scheme, i) => (
-              <div 
-                key={i}
-                className={`bg-white rounded-xl border-2 p-6 transition-all ${
-                  scheme.status === 'available' 
-                    ? 'border-blue-500 shadow-lg' 
-                    : 'border-slate-200'
-                }`}
-              >
-                {scheme.status === 'available' && (
-                  <span className="inline-block px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full mb-4">
-                    Available Now
-                  </span>
-                )}
-                {scheme.status === 'coming' && (
-                  <span className="inline-flex items-center gap-1 px-3 py-1 bg-slate-100 text-slate-500 text-xs font-bold rounded-full mb-4">
-                    <FaClock className="text-xs" /> Coming Soon
-                  </span>
-                )}
-                
-                <h3 className="text-xl font-bold text-slate-800 mb-2">{scheme.name}</h3>
-                <p className="text-slate-500 text-sm mb-4">{scheme.desc}</p>
-                
-                {scheme.link ? (
-                  <Link 
-                    to={scheme.link}
-                    className="inline-flex items-center gap-2 text-blue-600 font-semibold hover:gap-3 transition-all"
-                  >
-                    Access Materials <FaArrowRight className="text-sm" />
-                  </Link>
-                ) : (
-                  <span className="text-slate-400 text-sm">Materials uploading...</span>
-                )}
-              </div>
-            ))}
+            {schemes.map((scheme, i) => {
+              const cardContent = (
+                <>
+                  {scheme.status === 'available' && (
+                    <span className="inline-block px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full mb-4">
+                      Available Now
+                    </span>
+                  )}
+                  {scheme.status === 'coming' && (
+                    <span className="inline-flex items-center gap-1 px-3 py-1 bg-slate-100 text-slate-500 text-xs font-bold rounded-full mb-4">
+                      <FaClock className="text-xs" /> Coming Soon
+                    </span>
+                  )}
+                  
+                  <h3 className="text-xl font-bold text-slate-800 mb-2">{scheme.name}</h3>
+                  <p className="text-slate-500 text-sm mb-4">{scheme.desc}</p>
+                  
+                  {scheme.link ? (
+                    <span className="inline-flex items-center gap-2 text-blue-600 font-semibold group-hover:gap-3 transition-all">
+                      Access Materials <FaArrowRight className="text-sm" />
+                    </span>
+                  ) : (
+                    <span className="text-slate-400 text-sm">Materials uploading...</span>
+                  )}
+                </>
+              );
+
+              return scheme.link ? (
+                <Link 
+                  key={i}
+                  to={scheme.link}
+                  className="group bg-white rounded-xl border-2 p-6 transition-all border-blue-500 shadow-lg hover:shadow-xl hover:-translate-y-1 cursor-pointer block"
+                >
+                  {cardContent}
+                </Link>
+              ) : (
+                <div 
+                  key={i}
+                  className="bg-white rounded-xl border-2 p-6 transition-all border-slate-200"
+                >
+                  {cardContent}
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>

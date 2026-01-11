@@ -193,7 +193,7 @@ const Footer = () => {
               rel="noopener noreferrer" 
               className="text-slate-300 hover:text-white transition-colors"
             >
-              Srujan & Webotrex
+              Srujan Shetty & Webotrex
             </a>
           </p>
         </div>

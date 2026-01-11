@@ -1,99 +1,91 @@
+import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
-import Home from './pages/Home';
-import VTU2025Scheme from './pages/VTU2025Scheme';
-import VTU from './pages/VTU';
-import Contact from './pages/Contact';
-import Contribute from './pages/Contribute';
-import About from './pages/About';
-import Terms from './pages/Terms';
-import Privacy from './pages/Privacy';
-import MobilePdfViewer from './pages/MobilePdfViewer';
 import ScrollToTop from './components/common/ScrollToTop';
 import BackToTopButton from './components/common/BackToTopButton';
+import PageLoader from './components/common/PageLoader';
 import './index.css';
+
+// Lazy load pages for better performance and loading experience
+const Home = lazy(() => import('./pages/Home'));
+const VTU2025Scheme = lazy(() => import('./pages/VTU2025Scheme'));
+const VTU = lazy(() => import('./pages/VTU'));
+const Contact = lazy(() => import('./pages/Contact'));
+const Contribute = lazy(() => import('./pages/Contribute'));
+const About = lazy(() => import('./pages/About'));
+const Terms = lazy(() => import('./pages/Terms'));
+const Privacy = lazy(() => import('./pages/Privacy'));
+const MobilePdfViewer = lazy(() => import('./pages/MobilePdfViewer'));
+
+// Layout wrapper for pages with header and footer
+const MainLayout = ({ children }) => (
+  <div className="flex flex-col min-h-screen">
+    <Header />
+    <main className="flex-grow">
+      <Suspense fallback={<PageLoader />}>
+        {children}
+      </Suspense>
+    </main>
+    <Footer />
+  </div>
+);
 
 function App() {
   return (
     <HelmetProvider>
       <Router>
         <ScrollToTop />
-        <Routes>
-          {/* Mobile PDF Viewer - Fullscreen (no header/footer) */}
-          <Route path="/pdf-viewer" element={<MobilePdfViewer />} />
-          
-          {/* Terms and Privacy - Simple pages */}
-          <Route path="/terms" element={<Terms />} />
-          <Route path="/privacy" element={<Privacy />} />
-          
-          {/* Main Layout with Header and Footer */}
-          <Route path="/" element={
-            <div className="flex flex-col min-h-screen">
-              <Header />
-              <main className="flex-grow">
+        <Suspense fallback={<PageLoader />}>
+          <Routes>
+            {/* Mobile PDF Viewer - Fullscreen (no header/footer) */}
+            <Route path="/pdf-viewer" element={<MobilePdfViewer />} />
+            
+            {/* Terms and Privacy - Simple pages */}
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/privacy" element={<Privacy />} />
+            
+            {/* Main Layout with Header and Footer */}
+            <Route path="/" element={
+              <MainLayout>
                 <Home />
-              </main>
-              <Footer />
-            </div>
-          } />
-          
-          <Route path="/about" element={
-            <div className="flex flex-col min-h-screen">
-              <Header />
-              <main className="flex-grow">
+              </MainLayout>
+            } />
+            
+            <Route path="/about" element={
+              <MainLayout>
                 <About />
-              </main>
-              <Footer />
-            </div>
-          } />
-          
-          <Route path="/vtu-2025-scheme" element={
-            <div className="flex flex-col min-h-screen">
-              <Header />
-              <main className="flex-grow">
+              </MainLayout>
+            } />
+            
+            <Route path="/vtu-2025-scheme" element={
+              <MainLayout>
                 <VTU2025Scheme />
-              </main>
-              <Footer />
-            </div>
-          } />
-          
-          <Route path="/contribute" element={
-            <div className="flex flex-col min-h-screen">
-              <Header />
-              <main className="flex-grow">
+              </MainLayout>
+            } />
+            
+            <Route path="/contribute" element={
+              <MainLayout>
                 <Contribute />
-              </main>
-              <Footer />
-            </div>
-          } />
-          
-          <Route path="/vtu" element={
-            <div className="flex flex-col min-h-screen">
-              <Header />
-              <main className="flex-grow">
+              </MainLayout>
+            } />
+            
+            <Route path="/vtu" element={
+              <MainLayout>
                 <VTU />
-              </main>
-              <Footer />
-            </div>
-          } />
-          
-          <Route path="/contact" element={
-            <div className="flex flex-col min-h-screen">
-              <Header />
-              <main className="flex-grow">
+              </MainLayout>
+            } />
+            
+            <Route path="/contact" element={
+              <MainLayout>
                 <Contact />
-              </main>
-              <Footer />
-            </div>
-          } />
-          
-          {/* 404 Page */}
-          <Route path="*" element={
-            <div className="flex flex-col min-h-screen">
-              <Header />
-              <main className="flex-grow">
+              </MainLayout>
+            } />
+            
+            {/* 404 Page */}
+            <Route path="*" element={
+              <MainLayout>
                 <div className="min-h-screen flex items-center justify-center bg-slate-50">
                   <div className="text-center">
                     <h1 className="text-6xl font-bold text-slate-800 mb-4">404</h1>
@@ -103,11 +95,10 @@ function App() {
                     </a>
                   </div>
                 </div>
-              </main>
-              <Footer />
-            </div>
-          } />
-        </Routes>
+              </MainLayout>
+            } />
+          </Routes>
+        </Suspense>
         <BackToTopButton />
       </Router>
     </HelmetProvider>
