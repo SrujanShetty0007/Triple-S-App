@@ -39,7 +39,7 @@ const Footer = () => {
       }}></div>
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 py-16 relative z-10">
+      <div className="container mx-auto px-4 py-10 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
           
           {/* Brand Section */}
@@ -175,7 +175,7 @@ const Footer = () => {
         </div>
 
         {/* Divider */}
-        <div className="h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent my-10"></div>
+        <div className="h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent my-4"></div>
 
         {/* Bottom Bar */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">

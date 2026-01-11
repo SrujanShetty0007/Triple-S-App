@@ -3,7 +3,43 @@
     "sem1": {
       "ai-applications": {
         "model-papers": [],
-        "notes": [],
+        "notes": [
+          {
+            "filename": "1BAIA103 mod 1.pdf",
+            "name": "1baia103 Mod 1",
+            "path": "/assets/pdfs/2025-scheme/sem1/ai-applications/notes/1BAIA103 mod 1.pdf"
+          },
+          {
+            "filename": "1BAIA103 mod 2.pdf",
+            "name": "1baia103 Mod 2",
+            "path": "/assets/pdfs/2025-scheme/sem1/ai-applications/notes/1BAIA103 mod 2.pdf"
+          },
+          {
+            "filename": "1BAIA103 mod 3.pdf",
+            "name": "1baia103 Mod 3",
+            "path": "/assets/pdfs/2025-scheme/sem1/ai-applications/notes/1BAIA103 mod 3.pdf"
+          },
+          {
+            "filename": "1BAIA103 mod 4.pdf",
+            "name": "1baia103 Mod 4",
+            "path": "/assets/pdfs/2025-scheme/sem1/ai-applications/notes/1BAIA103 mod 4.pdf"
+          },
+          {
+            "filename": "1BAIA103 mod 5.pdf",
+            "name": "1baia103 Mod 5",
+            "path": "/assets/pdfs/2025-scheme/sem1/ai-applications/notes/1BAIA103 mod 5.pdf"
+          },
+          {
+            "filename": "ai mod 2.pdf",
+            "name": "Ai Mod 2",
+            "path": "/assets/pdfs/2025-scheme/sem1/ai-applications/notes/ai mod 2.pdf"
+          },
+          {
+            "filename": "ai module 1.pdf",
+            "name": "Ai Module 1",
+            "path": "/assets/pdfs/2025-scheme/sem1/ai-applications/notes/ai module 1.pdf"
+          }
+        ],
         "previous-papers": []
       },
       "applied-chemistry-cse": {

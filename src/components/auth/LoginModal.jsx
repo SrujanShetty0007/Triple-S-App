@@ -1,15 +1,22 @@
 import { useState } from 'react';
-import { FaTimes, FaGoogle, FaEnvelope, FaLock, FaUser, FaEye, FaEyeSlash, FaSpinner } from 'react-icons/fa';
+import { FaTimes, FaEnvelope, FaLock, FaUser, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { signUpWithEmail, signInWithEmail, signInWithGoogle } from '../../firebase/authService';
 
-const INITIAL_FORM_STATE = { name: '', email: '', password: '', confirmPassword: '' };
+const GoogleIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z" fill="#4285F4"/>
+    <path d="M9.003 18c2.43 0 4.467-.806 5.956-2.18l-2.909-2.26c-.806.54-1.836.86-3.047.86-2.344 0-4.328-1.584-5.036-3.711H.96v2.332C2.44 15.983 5.485 18 9.003 18z" fill="#34A853"/>
+    <path d="M3.964 10.712c-.18-.54-.282-1.117-.282-1.71 0-.593.102-1.17.282-1.71V4.96H.957C.347 6.175 0 7.55 0 9.002c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/>
+    <path d="M9.003 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.464.891 11.428 0 9.002 0 5.485 0 2.44 2.017.96 4.958L3.967 7.29c.708-2.127 2.692-3.71 5.036-3.71z" fill="#EA4335"/>
+  </svg>
+);
 
 const LoginModal = ({ isOpen, onClose }) => {
   const [activeTab, setActiveTab] = useState('signin');
   const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] =useState(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [formData, setFormData] = useState(INITIAL_FORM_STATE);
+  const [formData, setFormData] = useState({ name: '', email: '', password: '', confirmPassword: '' });
 
   const handleChange = (e) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -20,7 +27,6 @@ const LoginModal = ({ isOpen, onClose }) => {
     e.preventDefault();
     setError('');
     setLoading(true);
-
     try {
       if (activeTab === 'signin') {
         const result = await signInWithEmail(formData.email, formData.password);
@@ -32,9 +38,9 @@ const LoginModal = ({ isOpen, onClose }) => {
           return;
         }
         const result = await signUpWithEmail(formData.email, formData.password, formData.name);
-       result.success ? onClose() : setError(result.error);
+        result.success ? onClose() : setError(result.error);
       }
-    } catch (err) {
+    } catch {
       setError('An unexpected error occurred.');
     } finally {
       setLoading(false);
@@ -47,7 +53,7 @@ const LoginModal = ({ isOpen, onClose }) => {
     try {
       const result = await signInWithGoogle();
       result.success ? onClose() : setError(result.error);
-    } catch (err) {
+    } catch {
       setError('Google sign in failed.');
     } finally {
       setLoading(false);
@@ -57,102 +63,89 @@ const LoginModal = ({ isOpen, onClose }) => {
   const switchTab = (tab) => {
     setActiveTab(tab);
     setError('');
-    setFormData(INITIAL_FORM_STATE);
+    setFormData({ name: '', email: '', password: '', confirmPassword: '' });
   };
 
   if (!isOpen) return null;
 
+  const inputClass = "w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-100 focus:border-blue-500 outline-none transition-all text-sm";
+
   return (
-    <div className="fixed inset-0 z-[150] flex items-center justify-center bg-black/60 backdrop-blur-sm p-3 sm:p-4 animate-fadeIn" onClick={onClose}>
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden animate-slideUp max-h-[95vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+    <div className="fixed inset-0 z-[150] flex items-center justify-center bg-black/50 p-4" onClick={onClose}>
+      <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden" onClick={(e) => e.stopPropagation()}>
         
         {/* Header */}
-        <div className="sticky top-0 z-10 bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-4 sm:p-6">
-          <button onClick={onClose} className="absolute top-2 right-2 w-8 h-8 flex items-center justify-center text-2xl transition-all hover:scale-110" disabled={loading}>
+        <div className="relative bg-blue-600 text-white px-6 py-5">
+          <button onClick={onClose} className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors">
             <FaTimes />
           </button>
-          <h2 className="text-xl sm:text-2xl font-bold pr-8">Welcome to Triple S</h2>
-          <p className="text-blue-100 text-xs sm:text-sm mt-1">Your academic journey starts here</p>
+          <h2 className="text-xl font-bold">Welcome to Triple S</h2>
+          <p className="text-blue-100 text-sm mt-1">Your academic journey starts here</p>
         </div>
 
         {/* Tabs */}
-        <div className="sticky top-[88px] sm:top-[104px] z-10 flex border-b border-gray-200 bg-white">
+        <div className="flex border-b border-gray-100">
           {['signin', 'signup'].map(tab => (
             <button key={tab} onClick={() => switchTab(tab)} disabled={loading}
-              className={`flex-1 py-3 sm:py-4 font-semibold text-sm sm:text-base transition-all ${activeTab === tab ? 'text-blue-600 border-b-2 border-blue-600 bg-blue-50/50' : 'text-gray-500 hover:text-gray-700'}`}>
+              className={`flex-1 py-3.5 text-sm font-medium transition-all ${activeTab === tab ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-500 hover:text-gray-700'}`}>
               {tab === 'signin' ? 'Sign In' : 'Sign Up'}
             </button>
           ))}
         </div>
 
         {/* Form */}
-        <div className="p-4 sm:p-6">
-          {error && <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-600 text-xs sm:text-sm">{error}</div>}
+        <div className="p-6">
+          {error && <div className="mb-4 p-3 bg-red-50 border border-red-100 rounded-lg text-red-600 text-sm">{error}</div>}
 
-          <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
             {activeTab === 'signup' && (
-              <div>
-                <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-2">Full Name</label>
-                <div className="relative">
-                  <FaUser className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm" />
-                  <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Enter your full name" required disabled={loading}
-                    className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-2.5 sm:py-3 text-sm sm:text-base bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all disabled:opacity-50" />
-                </div>
+              <div className="relative">
+                <FaUser className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm" />
+                <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Full name" required disabled={loading} className={inputClass} />
               </div>
             )}
 
-            <div>
-              <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-2">Email Address</label>
-              <div className="relative">
-                <FaEnvelope className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm" />
-                <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="your@email.com" required disabled={loading}
-                  className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-2.5 sm:py-3 text-sm sm:text-base bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all disabled:opacity-50" />
-              </div>
+            <div className="relative">
+              <FaEnvelope className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm" />
+              <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email address" required disabled={loading} className={inputClass} />
             </div>
 
-            <div>
-              <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-2">Password</label>
-              <div className="relative">
-                <FaLock className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm" />
-                <input type={showPassword ? 'text' : 'password'} name="password" value={formData.password} onChange={handleChange} placeholder="••••••••" required disabled={loading}
-                  className="w-full pl-10 sm:pl-12 pr-10 sm:pr-12 py-2.5 sm:py-3 text-sm sm:text-base bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all disabled:opacity-50" />
-                <button type="button" onClick={() => setShowPassword(!showPassword)} disabled={loading} className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
-                  {showPassword ? <FaEyeSlash /> : <FaEye />}
-                </button>
-              </div>
+            <div className="relative">
+              <FaLock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm" />
+              <input type={showPassword ? 'text' : 'password'} name="password" value={formData.password} onChange={handleChange} placeholder="Password" required disabled={loading} className={`${inputClass} pr-10`} />
+              <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
             </div>
 
             {activeTab === 'signup' && (
-              <div>
-                <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-2">Confirm Password</label>
-                <div className="relative">
-                  <FaLock className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm" />
-                  <input type={showPassword ? 'text' : 'password'} name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} placeholder="••••••••" required disabled={loading}
-                    className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-2.5 sm:py-3 text-sm sm:text-base bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all disabled:opacity-50" />
-                </div>
+              <div className="relative">
+                <FaLock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm" />
+                <input type={showPassword ? 'text' : 'password'} name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} placeholder="Confirm password" required disabled={loading} className={inputClass} />
               </div>
             )}
 
             <button type="submit" disabled={loading}
-              className="w-full py-3 sm:py-3.5 text-sm sm:text-base bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-bold shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30 hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
-              {loading ? <><FaSpinner className="animate-spin" />{activeTab === 'signin' ? 'Signing In...' : 'Creating Account...'}</> : (activeTab === 'signin' ? 'Sign In' : 'Create Account')}
+              className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold text-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+              {loading ? (activeTab === 'signin' ? 'Signing in...' : 'Creating account...') : (activeTab === 'signin' ? 'Sign In' : 'Create Account')}
             </button>
           </form>
 
-          <div className="flex items-center gap-4 my-4 sm:my-6">
+          <div className="flex items-center gap-4 my-5">
             <div className="flex-1 h-px bg-gray-200"></div>
-            <span className="text-xs sm:text-sm text-gray-500 font-medium">OR</span>
+            <span className="text-xs text-gray-400">or</span>
             <div className="flex-1 h-px bg-gray-200"></div>
           </div>
 
           <button onClick={handleGoogleSignIn} disabled={loading}
-            className="w-full flex items-center justify-center gap-3 py-2.5 sm:py-3 text-sm sm:text-base bg-white border-2 border-gray-200 rounded-xl font-semibold text-gray-700 hover:bg-gray-50 hover:border-gray-300 transition-all disabled:opacity-50 disabled:cursor-not-allowed">
-            {loading ? <FaSpinner className="animate-spin text-lg" /> : <><FaGoogle className="text-red-500 text-base sm:text-lg" />Continue with Google</>}
+            className="w-full flex items-center justify-center gap-3 py-3 bg-white border border-gray-200 rounded-lg font-medium text-sm text-gray-700 hover:bg-gray-50 hover:border-gray-300 transition-all disabled:opacity-50">
+            <GoogleIcon />
+            <span>Continue with Google</span>
           </button>
 
           {activeTab === 'signup' && (
-            <p className="text-[10px] sm:text-xs text-gray-500 text-center mt-3 sm:mt-4 leading-relaxed">
-              By signing up, you agree to our <a href="#" className="text-blue-600 hover:underline">Terms of Service</a> and <a href="#" className="text-blue-600 hover:underline">Privacy Policy</a>
+            <p className="text-xs text-gray-400 text-center mt-4">
+              By signing up, you agree to our <a href="#" className="text-blue-600 hover:underline">Terms</a> and <a href="#" className="text-blue-600 hover:underline">Privacy Policy</a>
             </p>
           )}
         </div>
