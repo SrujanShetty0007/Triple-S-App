@@ -42,9 +42,13 @@ const PdfViewerModal = ({ isOpen, onClose, pdfUrl, fileName }) => {
               <p className="text-gray-500 text-sm">Loading PDF...</p>
             </div>
           )}
-          <object data={pdfUrl + '#toolbar=1&navpanes=0'} type="application/pdf" className="w-full h-full" onLoad={() => setLoading(false)}>
-            <iframe src={pdfUrl} title={fileName} className="w-full h-full border-0" onLoad={() => setLoading(false)} />
-          </object>
+          <iframe 
+            src={pdfUrl} 
+            title={fileName} 
+            className="w-full h-full border-0" 
+            onLoad={() => setLoading(false)}
+            allow="fullscreen"
+          />
         </div>
       </div>
     </div>
