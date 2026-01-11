@@ -48,7 +48,7 @@ const VTU2025Scheme = () => {
             📚 Complete Study Materials
           </div>
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            VTU 2025 Scheme – Complete Study Materials
+            VTU 2025 Scheme Complete Study Materials
           </h1>
           <p className="text-lg text-blue-100 max-w-3xl mx-auto mb-8">
             Download notes, syllabus PDFs, previous year question papers and model papers for all VTU 2025 scheme subjects

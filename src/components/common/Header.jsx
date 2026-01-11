@@ -147,36 +147,30 @@ const Header = () => {
                       e.stopPropagation();
                       setShowUserMenu(!showUserMenu);
                     }}
-                    className="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-sm transition-transform hover:scale-110 shadow-lg"
+                    className="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg hover:scale-105 transition-transform"
                     title={user.displayName || user.email}
                   >
                     {(user.displayName || user.email || 'U').charAt(0).toUpperCase()}
                   </button>
                   
-                  <div className={`absolute top-full right-0 mt-2 w-64 bg-white rounded-lg shadow-xl border border-gray-100 overflow-hidden transition-all duration-200 origin-top-right ${
-                    showUserMenu ? 'opacity-100 visible scale-100' : 'opacity-0 invisible scale-95'
-                  }`}>
-                    <div className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 border-b">
-                      <p className="font-bold text-gray-800 truncate">{user.displayName || 'User'}</p>
-                      <p className="text-xs text-gray-500 truncate">{user.email}</p>
-                    </div>
-                    <div className="p-2">
-                      <button className="w-full text-left px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors flex items-center gap-3">
-                        <FaUserCircle className="text-lg" /> 
-                        <span className="font-medium">Profile</span>
-                      </button>
+                  {showUserMenu && (
+                    <div className="absolute top-[calc(100%+8px)] right-0 w-52 bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden z-[200]">
+                      <div className="px-4 py-3 bg-slate-50 border-b border-gray-200">
+                        <p className="font-semibold text-gray-800 text-sm truncate">{user.displayName || 'User'}</p>
+                        <p className="text-xs text-gray-500 truncate mt-0.5">{user.email}</p>
+                      </div>
                       <button 
                         onClick={async () => {
                           await handleSignOut();
                           setShowUserMenu(false);
                         }}
-                        className="w-full text-left px-4 py-2.5 text-red-600 hover:bg-red-50 rounded-lg transition-colors flex items-center gap-3"
+                        className="w-full text-left px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors flex items-center gap-2"
                       >
-                        <span className="text-lg">→</span>
+                        <span>🚪</span>
                         <span className="font-medium">Logout</span>
                       </button>
                     </div>
-                  </div>
+                  )}
                 </div>
               ) : (
                 <button 
@@ -187,14 +181,10 @@ const Header = () => {
                   <FaUserCircle className="text-3xl" />
                 </button>
               )}
-              
-              <Link to="/contribute" className="px-6 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-bold text-sm shadow-lg shadow-blue-500/25 hover:shadow-xl hover:-translate-y-0.5 transition-all">
-                Contribute Now
-              </Link>
             </nav>
 
-            {/* Mobile Menu Button */}
-            <div className="lg:hidden flex items-center gap-3">
+            {/* Mobile Header Buttons */}
+            <div className="lg:hidden flex items-center gap-2">
               {user ? (
                 <div className="relative user-menu-container">
                   <button 
@@ -202,33 +192,28 @@ const Header = () => {
                       e.stopPropagation();
                       setShowUserMenu(!showUserMenu);
                     }}
-                    className="w-9 h-9 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-xs shadow-lg"
+                    className="w-9 h-9 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md"
                   >
                     {(user.displayName || user.email || 'U').charAt(0).toUpperCase()}
                   </button>
                   
-                  <div className={`absolute top-full right-0 mt-3 w-64 bg-white rounded-lg shadow-xl border overflow-hidden transition-all duration-200 origin-top-right ${
-                    showUserMenu ? 'opacity-100 visible scale-100' : 'opacity-0 invisible scale-95'
-                  }`}>
-                    <div className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 border-b">
-                      <p className="font-bold text-gray-800 truncate text-sm">{user.displayName || 'User'}</p>
-                      <p className="text-xs text-gray-500 truncate">{user.email}</p>
-                    </div>
-                    <div className="p-2">
-                      <button className="w-full text-left px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors flex items-center gap-3">
-                        <FaUserCircle /> <span className="font-medium">Profile</span>
-                      </button>
+                  {showUserMenu && (
+                    <div className="absolute top-[calc(100%+8px)] right-0 w-52 bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden z-[200]">
+                      <div className="px-4 py-3 bg-slate-50 border-b border-gray-200">
+                        <p className="font-semibold text-gray-800 text-sm truncate">{user.displayName || 'User'}</p>
+                        <p className="text-xs text-gray-500 truncate mt-0.5">{user.email}</p>
+                      </div>
                       <button 
                         onClick={async () => {
                           await handleSignOut();
                           setShowUserMenu(false);
                         }}
-                        className="w-full text-left px-4 py-2.5 text-red-600 hover:bg-red-50 rounded-lg transition-colors flex items-center gap-3"
+                        className="w-full text-left px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors flex items-center gap-2"
                       >
-                        <span>→</span> <span className="font-medium">Logout</span>
+                        <span>🚪</span> <span className="font-medium">Logout</span>
                       </button>
                     </div>
-                  </div>
+                  )}
                 </div>
               ) : (
                 <button 
@@ -239,10 +224,6 @@ const Header = () => {
                   <FaUserCircle className="text-2xl" />
                 </button>
               )}
-              
-              <Link to="/contribute" className="px-4 py-2 bg-blue-50 text-blue-600 rounded-lg font-bold text-xs hover:bg-blue-100 transition-colors">
-                Contribute
-              </Link>
               
               {/* Animated Hamburger Button */}
               <button

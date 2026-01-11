@@ -6,7 +6,7 @@ import logoB from '../../assets/images/triple-s_logo_b.png';
 const Footer = () => {
   const quickLinks = [
     { name: 'Home', path: '/' },
-    { name: '2025 Scheme', path: '/2025-scheme' },
+    { name: '2025 Scheme', path: '/vtu-2025-scheme' },
     { name: 'VTU Resources', path: '/vtu' },
     { name: 'About Us', path: '/about' },
     { name: 'Contact', path: '/contact' },
@@ -16,8 +16,8 @@ const Footer = () => {
   const resources = [
     { name: 'SGPA Calculator', path: '/vtu' },
     { name: 'CGPA Calculator', path: '/vtu' },
-    { name: 'Model Papers', path: '/2025-scheme' },
-    { name: 'Previous Papers', path: '/2025-scheme' }
+    { name: 'Model Papers', path: '/vtu-2025-scheme' },
+    { name: 'Previous Papers', path: '/vtu-2025-scheme' }
   ];
 
   const socialLinks = [

@@ -116,7 +116,7 @@ const About = () => {
                 <p className="text-blue-600 font-medium mb-4">Founder & Developer</p>
                 <p className="text-slate-600 mb-6 leading-relaxed">
                   A passionate engineering student and web developer who created Triple-S to solve a common problem 
-                  faced by students - finding quality study materials in one organized place.
+                  faced by students finding quality study materials in one organized place.
                 </p>
                 <div className="flex gap-3">
                   <a href={CONTACT.linkedin} target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-slate-100 hover:bg-blue-600 text-slate-600 hover:text-white rounded-lg flex items-center justify-center transition-all">
