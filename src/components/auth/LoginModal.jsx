@@ -145,7 +145,7 @@ const LoginModal = ({ isOpen, onClose }) => {
 
           {activeTab === 'signup' && (
             <p className="text-xs text-gray-400 text-center mt-4">
-              By signing up, you agree to our <a href="#" className="text-blue-600 hover:underline">Terms</a> and <a href="#" className="text-blue-600 hover:underline">Privacy Policy</a>
+              By signing up, you agree to our <a href="/terms" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Terms</a> and <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Privacy Policy</a>
             </p>
           )}
         </div>

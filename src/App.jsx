@@ -8,6 +8,8 @@ import VTU from './pages/VTU';
 import Contact from './pages/Contact';
 import Contribute from './pages/Contribute';
 import About from './pages/About';
+import Terms from './pages/Terms';
+import Privacy from './pages/Privacy';
 import MobilePdfViewer from './pages/MobilePdfViewer';
 import ScrollToTop from './components/common/ScrollToTop';
 import BackToTopButton from './components/common/BackToTopButton';
@@ -21,6 +23,10 @@ function App() {
         <Routes>
           {/* Mobile PDF Viewer - Fullscreen (no header/footer) */}
           <Route path="/pdf-viewer" element={<MobilePdfViewer />} />
+          
+          {/* Terms and Privacy - Simple pages */}
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/privacy" element={<Privacy />} />
           
           {/* Main Layout with Header and Footer */}
           <Route path="/" element={

@@ -115,25 +115,27 @@ const Contribute = () => {
                 <div>
                   <label className="block text-sm font-semibold text-slate-700 mb-2">Upload File</label>
                   <input type="file" id="file" name="attachment" accept=".pdf,.jpg,.jpeg,.png" onChange={handleFileChange} required className="hidden" />
-                  <label htmlFor="file" className="flex flex-col items-center justify-center w-full px-6 py-8 border-2 border-dashed border-slate-300 rounded-lg hover:border-blue-500 cursor-pointer bg-slate-50 transition-all">
-                    <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center text-white mb-3">
-                      <FaUpload className="text-xl" />
+                  <label htmlFor="file" className="flex items-center gap-4 w-full px-4 py-4 border-2 border-dashed border-slate-300 rounded-lg hover:border-blue-500 cursor-pointer bg-slate-50 transition-all">
+                    <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white flex-shrink-0">
+                      <FaUpload />
                     </div>
-                    <span className="text-slate-700 font-medium">{fileName || 'Click to upload file'}</span>
-                    <span className="text-slate-400 text-sm mt-1">PDF, JPG, PNG (Max 150MB)</span>
+                    <div>
+                      <span className="text-slate-700 font-medium text-sm block">{fileName || 'Click to upload file'}</span>
+                      <span className="text-slate-400 text-xs">PDF, JPG, PNG (Max 150MB)</span>
+                    </div>
                   </label>
                 </div>
 
-                <button type="submit" className="w-full px-6 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold text-lg transition-all flex items-center justify-center gap-2">
-                  <FaPaperPlane /> Submit Contribution
+                <button type="submit" className="w-full px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold text-sm transition-all flex items-center justify-center gap-2">
+                  <FaPaperPlane className="text-sm" /> Submit Contribution
                 </button>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <a href={`mailto:${CONTACT.email}`} className="px-4 py-3 bg-red-500 hover:bg-red-600 text-white rounded-lg font-semibold flex items-center justify-center gap-2 transition-all">
-                    <FaEnvelope /> Via Email
+                <div className="grid grid-cols-2 gap-3">
+                  <a href={`mailto:${CONTACT.email}`} className="px-3 py-2.5 bg-red-500 hover:bg-red-600 text-white rounded-lg font-medium text-sm flex items-center justify-center gap-2 transition-all">
+                    <FaEnvelope className="text-sm" /> Via Email
                   </a>
-                  <a href={`https://wa.me/${CONTACT.whatsapp.replace('+', '')}`} target="_blank" rel="noopener noreferrer" className="px-4 py-3 bg-green-500 hover:bg-green-600 text-white rounded-lg font-semibold flex items-center justify-center gap-2 transition-all">
-                    <FaWhatsapp /> Via WhatsApp
+                  <a href={`https://wa.me/${CONTACT.whatsapp.replace('+', '')}`} target="_blank" rel="noopener noreferrer" className="px-3 py-2.5 bg-green-500 hover:bg-green-600 text-white rounded-lg font-medium text-sm flex items-center justify-center gap-2 transition-all">
+                    <FaWhatsapp className="text-sm" /> Via WhatsApp
                   </a>
                 </div>
               </form>
