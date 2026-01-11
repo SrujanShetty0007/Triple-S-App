@@ -10,40 +10,41 @@ const PdfViewerModal = ({ isOpen, onClose, pdfUrl, fileName }) => {
     return () => { document.body.style.overflow = ''; };
   }, [isOpen]);
 
-  const handleDownload = () => {
-    Object.assign(document.createElement('a'), { href: pdfUrl, download: fileName, target: '_blank' }).click();
-  };
-
   if (!isOpen) return null;
 
+  const download = () => {
+    const a = document.createElement('a');
+    a.href = pdfUrl;
+    a.download = fileName;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm animate-fadeIn" onClick={onClose}>
-      <div className="w-full h-full max-w-7xl max-h-screen m-4 bg-white rounded-2xl shadow-2xl flex flex-col animate-slideUp" onClick={e => e.stopPropagation()}>
-        {/* Header */}
-        <div className="bg-gradient-to-r from-blue-600 to-blue-500 text-white px-6 py-4 rounded-t-2xl flex items-center justify-between">
-          <div className="flex-1 min-w-0">
-            <h3 className="text-lg font-bold truncate">{fileName}</h3>
-            <p className="text-sm text-white/80">PDF Viewer</p>
-          </div>
-          <div className="flex gap-2 ml-4">
-            <button onClick={handleDownload} className="px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg flex items-center gap-2 text-sm font-medium">
-              <FaDownload /><span className="hidden sm:inline">Download</span>
+    <div className="fixed inset-0 z-[150] flex items-center justify-center bg-black/60 p-4" onClick={onClose}>
+      <div className="w-full h-full max-w-5xl max-h-[88vh] bg-white rounded-xl shadow-2xl flex flex-col overflow-hidden" onClick={e => e.stopPropagation()}>
+        <div className="bg-blue-600 text-white px-5 py-3 flex items-center justify-between">
+          <h3 className="text-base font-bold truncate flex-1">{fileName}</h3>
+          <div className="flex gap-2 ml-3">
+            <button onClick={download} className="px-3 py-1.5 bg-white/20 hover:bg-white/30 rounded-md flex items-center gap-2 text-sm">
+              <FaDownload className="text-xs" /> Download
             </button>
-            <button onClick={onClose} className="w-10 h-10 bg-white/20 hover:bg-white/30 rounded-lg flex items-center justify-center text-2xl">
+            <button onClick={onClose} className="w-8 h-8 bg-white/20 hover:bg-white/30 rounded-md flex items-center justify-center">
               <FaTimes />
             </button>
           </div>
         </div>
-
-        {/* PDF Viewer */}
-        <div className="flex-1 relative bg-gray-100 rounded-b-2xl overflow-hidden">
+        <div className="flex-1 relative bg-gray-100">
           {loading && (
-            <div className="absolute inset-0 flex flex-col items-center justify-center bg-white z-10">
-              <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mb-4" />
-              <p className="text-gray-600">Loading PDF...</p>
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-white">
+              <div className="w-10 h-10 border-3 border-blue-600 border-t-transparent rounded-full animate-spin mb-3" />
+              <p className="text-gray-500 text-sm">Loading PDF...</p>
             </div>
           )}
-          <iframe src={pdfUrl} title={fileName} className="w-full h-full border-0" onLoad={() => setLoading(false)} />
+          <object data={pdfUrl + '#toolbar=1&navpanes=0'} type="application/pdf" className="w-full h-full" onLoad={() => setLoading(false)}>
+            <iframe src={pdfUrl} title={fileName} className="w-full h-full border-0" onLoad={() => setLoading(false)} />
+          </object>
         </div>
       </div>
     </div>

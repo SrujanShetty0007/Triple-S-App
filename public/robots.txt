@@ -1,9 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /pdf-viewer
 
-# Sitemaps
 Sitemap: https://triple-s.netlify.app/sitemap.xml
-
-# Crawl-delay
-Crawl-delay: 1

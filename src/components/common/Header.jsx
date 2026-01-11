@@ -61,9 +61,8 @@ const Header = () => {
   const getIcon = (name) => {
     const icons = {
       'Home': <FaHome />,
-      'About Us': <FaInfoCircle />,
+      'About': <FaInfoCircle />,
       '2025 Scheme': <FaGraduationCap />,
-      'Subjects': <FaLayerGroup />,
       'VTU': <FaUniversity />,
       'Contribute': <FaHandHoldingHeart />,
       'Contact': <FaEnvelope />

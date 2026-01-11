@@ -1,226 +1,217 @@
 import { Link } from 'react-router-dom';
-import { FaCalculator, FaChartLine, FaSearch, FaGraduationCap, FaFileAlt, FaBell, FaBookOpen, FaCalendarAlt, FaUniversity, FaMapMarkerAlt, FaHistory, FaGlobe } from 'react-icons/fa';
-import HeroSection from '../components/common/HeroSection';
+import { FaCalculator, FaChartLine, FaSearch, FaGraduationCap, FaFileAlt, FaBell, FaBookOpen, FaCalendarAlt, FaUniversity, FaMapMarkerAlt, FaHistory, FaGlobe, FaExternalLinkAlt } from 'react-icons/fa';
 import SEO from '../components/common/SEO';
 
 const VTU = () => {
   const tools = [
     { 
       title: 'SGPA Calculator', 
-      desc: 'Calculate your Semester Grade Point Average with ease', 
+      desc: 'Calculate your Semester Grade Point Average', 
       icon: <FaChartLine />, 
-      path: '/sgpa-calculator', 
-      color: 'from-blue-500 to-indigo-600',
-      badge: 'Available Now'
+      path: '/sgpa-calculator',
+      color: 'bg-blue-600'
     },
     { 
       title: 'CGPA Calculator', 
       desc: 'Calculate your Cumulative Grade Point Average', 
       icon: <FaCalculator />, 
-      path: '/cgpa-calculator', 
-      color: 'from-indigo-500 to-purple-600',
-      badge: 'Available Now'
+      path: '/cgpa-calculator',
+      color: 'bg-indigo-600'
     },
     { 
       title: 'Results Checker', 
       desc: 'Quick access to your VTU exam results', 
       icon: <FaSearch />, 
       path: 'https://results.vtu.ac.in/', 
-      external: true, 
-      color: 'from-purple-500 to-pink-600',
-      badge: 'Check Now'
+      external: true,
+      color: 'bg-purple-600'
     }
   ];
 
   const officialResources = [
-    { title: 'Model Question Papers', icon: <FaFileAlt />, path: 'https://vtu.ac.in/model-question-paper-b-e-b-tech-b-arch/' },
-    { title: 'Exam Circulars & Notifications', icon: <FaBell />, path: 'https://vtu.ac.in/category/circulars/' },
-    { title: 'B.E Scheme & Syllabus', icon: <FaBookOpen />, path: 'https://vtu.ac.in/b-e-scheme-syllabus/' },
-    { title: 'Exam Time Table', icon: <FaCalendarAlt />, path: 'https://vtu.ac.in/category/time-table/' }
+    { title: 'Model Question Papers', desc: 'Download official model papers', icon: <FaFileAlt />, path: 'https://vtu.ac.in/model-question-paper-b-e-b-tech-b-arch/', color: 'bg-green-600' },
+    { title: 'Exam Notifications', desc: 'Latest circulars & updates', icon: <FaBell />, path: 'https://vtu.ac.in/category/circulars/', color: 'bg-orange-500' },
+    { title: 'Scheme & Syllabus', desc: 'B.E scheme and syllabus', icon: <FaBookOpen />, path: 'https://vtu.ac.in/b-e-scheme-syllabus/', color: 'bg-cyan-600' },
+    { title: 'Exam Time Table', desc: 'View exam schedules', icon: <FaCalendarAlt />, path: 'https://vtu.ac.in/category/time-table/', color: 'bg-rose-600' }
   ];
 
   const universityInfo = [
-    { label: 'Name', value: 'Visvesvaraya Technological University (VTU)', icon: <FaUniversity className="text-blue-500" /> },
+    { label: 'University', value: 'Visvesvaraya Technological University (VTU)', icon: <FaUniversity className="text-blue-600" /> },
     { label: 'Location', value: 'Belagavi, Karnataka, India', icon: <FaMapMarkerAlt className="text-red-500" /> },
     { label: 'Established', value: '1 April 1998', icon: <FaHistory className="text-amber-500" /> },
-    { label: 'Website', value: 'VTU Official Website', link: 'https://vtu.ac.in/', icon: <FaGlobe className="text-emerald-500" /> },
-    { label: 'Academic Programmes', value: 'B.E/B.Tech, B.Arch, M.Tech, M.Arch, BSc, MSc, MCA, PhD', icon: <FaGraduationCap className="text-indigo-500" /> }
+    { label: 'Website', value: 'vtu.ac.in', link: 'https://vtu.ac.in/', icon: <FaGlobe className="text-emerald-500" /> },
+    { label: 'Programmes', value: 'B.E/B.Tech, M.Tech, MCA, PhD', icon: <FaGraduationCap className="text-indigo-500" /> }
   ];
 
   const gradeSystem = [
-    { range: '90-100', points: 10, grade: 'Outstanding', color: 'text-emerald-600 bg-emerald-50' },
-    { range: '80-89', points: 9, grade: 'Excellent', color: 'text-blue-600 bg-blue-50' },
-    { range: '70-79', points: 8, grade: 'Very Good', color: 'text-cyan-600 bg-cyan-50' },
-    { range: '60-69', points: 7, grade: 'Good', color: 'text-indigo-600 bg-indigo-50' },
-    { range: '50-59', points: 6, grade: 'Above Average', color: 'text-violet-600 bg-violet-50' },
-    { range: '45-49', points: 5, grade: 'Average', color: 'text-amber-600 bg-amber-50' },
-    { range: '40-44', points: 4, grade: 'Pass', color: 'text-orange-600 bg-orange-50' },
-    { range: 'Below 40', points: 0, grade: 'Fail', color: 'text-red-600 bg-red-50' }
+    { range: '90-100', points: 10, grade: 'Outstanding', color: 'bg-emerald-100 text-emerald-700' },
+    { range: '80-89', points: 9, grade: 'Excellent', color: 'bg-blue-100 text-blue-700' },
+    { range: '70-79', points: 8, grade: 'Very Good', color: 'bg-cyan-100 text-cyan-700' },
+    { range: '60-69', points: 7, grade: 'Good', color: 'bg-indigo-100 text-indigo-700' },
+    { range: '50-59', points: 6, grade: 'Above Average', color: 'bg-violet-100 text-violet-700' },
+    { range: '45-49', points: 5, grade: 'Average', color: 'bg-amber-100 text-amber-700' },
+    { range: '40-44', points: 4, grade: 'Pass', color: 'bg-orange-100 text-orange-700' },
+    { range: 'Below 40', points: 0, grade: 'Fail', color: 'bg-red-100 text-red-700' }
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-white">
       <SEO 
-        title="VTU Portal | SGPA CGPA Calculator, Results, Official Resources & Syllabus"
-        description="Comprehensive VTU portal for engineering students. Access free SGPA calculator, CGPA calculator, VTU exam results checker, model question papers, exam timetables, official circulars, VTU syllabus, and grading system information. Quick and accurate tools for all VTU students."
-        keywords="VTU SGPA calculator online, VTU CGPA calculator, VTU results 2024, VTU results checker, VTU exam results,  VTU grade calculator, VTU grading system, Visvesvaraya Technological University, VTU official resources, VTU model papers, VTU timetable, VTU syllabus download, VTU notifications, Karnataka VTU portal"
+        title="VTU Portal | SGPA CGPA Calculator, Results & Resources | Triple-S"
+        description="VTU portal for engineering students. Access SGPA calculator, CGPA calculator, exam results, model papers, timetables, and official resources."
+        keywords="VTU SGPA calculator, VTU CGPA calculator, VTU results, VTU grading system, VTU official resources, VTU model papers, VTU timetable"
         url="https://triple-s.netlify.app/vtu"
-        schema={{
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          "mainEntity": [
-            {
-              "@type": "Question",
-              "name": "How to calculate SGPA in VTU?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Use our SGPA calculator tool to easily calculate your Semester Grade Point Average. Enter your subject marks and credits, and our tool will instantly compute your SGPA based on the VTU grading system."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "What is the VTU grading system?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "VTU follows a 10-point grading scale where 90-100 = 10 points (Outstanding), 80-89 = 9 points (Excellent), 70-79 = 8 points (Very Good), 60-69 = 7 points (Good), 50-59 = 6 points (Above Average), 45-49 = 5 points (Average), 40-44 = 4 points (Pass), Below 40 = 0 points (Fail)."
-              }
-            }
-          ]
-        }}
-      />
-      <HeroSection 
-        badge={<div className="flex items-center gap-2"><FaUniversity className="text-blue-300" /> VTU Portal</div>} 
-        title="VTU Resources & Tools" 
-        subtitle="Your one-stop destination for VTU results, calculators, and academic resources. Fast, reliable, and designed specifically for VTU students."
       />
 
-      <div className="container mx-auto px-4 py-12 -mt-16 relative z-10">
-        
-        {/* Tools Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-          {tools.map((tool) => {
-            const Wrapper = tool.external ? 'a' : Link;
-            const props = tool.external 
-              ? { href: tool.path, target: "_blank", rel: "noopener noreferrer" } 
-              : { to: tool.path };
+      {/* Hero Section */}
+      <section className="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white">
+        <div className="container mx-auto px-4 py-16 md:py-20">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500 rounded-full text-sm font-semibold mb-6">
+              <FaUniversity />
+              <span>VTU Portal</span>
+            </div>
+            
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4 leading-tight">
+              VTU Resources & Tools
+            </h1>
+            
+            <p className="text-lg text-blue-100 mb-8 max-w-2xl mx-auto">
+              Your one-stop destination for VTU calculators, results, and official academic resources.
+            </p>
+          </div>
+        </div>
+      </section>
 
-            return (
-              <Wrapper key={tool.title} {...props} className="group relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-2xl blur-lg opacity-20 group-hover:opacity-40 transition-opacity duration-300 transform translate-y-4"></div>
-                <div className="bg-white rounded-2xl shadow-xl p-8 relative overflow-hidden border border-white/50 backdrop-blur-sm hover:-translate-y-2 transition-transform duration-300 h-full">
-                  
-                  {/* Badge */}
-                  <div className="absolute top-4 right-4 bg-blue-50 text-blue-600 text-[10px] font-bold px-2 py-1 rounded-full border border-blue-100 uppercase tracking-wider">
-                    {tool.badge}
-                  </div>
+      {/* Tools Section */}
+      <section className="py-16 bg-slate-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <span className="text-blue-600 font-semibold text-sm uppercase tracking-wider">Tools</span>
+            <h2 className="text-2xl md:text-3xl font-bold text-slate-800 mt-2">
+              VTU Calculators & Results
+            </h2>
+            <p className="text-slate-500 mt-2">Quick access to essential student tools</p>
+          </div>
 
-                  <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${tool.color} flex items-center justify-center text-white text-2xl mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {tools.map((tool) => {
+              const Wrapper = tool.external ? 'a' : Link;
+              const props = tool.external 
+                ? { href: tool.path, target: "_blank", rel: "noopener noreferrer" } 
+                : { to: tool.path };
+
+              return (
+                <Wrapper key={tool.title} {...props} className="bg-white p-6 rounded-xl border border-slate-200 hover:border-blue-300 hover:shadow-lg transition-all group">
+                  <div className={`w-12 h-12 ${tool.color} text-white rounded-lg flex items-center justify-center text-xl mb-4`}>
                     {tool.icon}
                   </div>
-                  
-                  <h3 className="text-xl font-bold text-slate-800 mb-2 group-hover:text-blue-600 transition-colors">{tool.title}</h3>
-                  <p className="text-slate-500 text-sm leading-relaxed mb-4">{tool.desc}</p>
-                </div>
-              </Wrapper>
-            );
-          })}
+                  <h3 className="text-lg font-bold text-slate-800 mb-2 group-hover:text-blue-600 transition-colors">{tool.title}</h3>
+                  <p className="text-slate-500 text-sm">{tool.desc}</p>
+                </Wrapper>
+              );
+            })}
+          </div>
         </div>
+      </section>
 
-        {/* Official Resources Section */}
-        <div className="mb-20">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl font-bold text-slate-800 relative inline-block">
+      {/* Official Resources Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <span className="text-blue-600 font-semibold text-sm uppercase tracking-wider">Quick Access</span>
+            <h2 className="text-2xl md:text-3xl font-bold text-slate-800 mt-2">
               Official VTU Resources
-              <span className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full"></span>
             </h2>
+            <p className="text-slate-500 mt-2">Direct links to official VTU portals</p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
             {officialResources.map((resource) => (
               <a 
                 key={resource.title} 
                 href={resource.path} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl border border-slate-100 hover:border-blue-200 transition-all duration-300 hover:-translate-y-1 group flex flex-col items-center text-center"
+                className="bg-slate-50 p-6 rounded-xl border border-slate-200 hover:border-blue-300 hover:shadow-lg transition-all group"
               >
-                <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center text-xl mb-4 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
+                <div className={`w-12 h-12 ${resource.color} text-white rounded-lg flex items-center justify-center text-xl mb-4`}>
                   {resource.icon}
                 </div>
-                <h3 className="font-semibold text-slate-700 group-hover:text-blue-700 transition-colors">{resource.title}</h3>
+                <h3 className="text-base font-bold text-slate-800 mb-1 group-hover:text-blue-600 transition-colors">{resource.title}</h3>
+                <p className="text-slate-500 text-sm">{resource.desc}</p>
               </a>
             ))}
           </div>
         </div>
+      </section>
 
-        {/* About University & Grading System Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-          
-          {/* About University */}
-          <div className="bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden">
-            <div className="p-6 border-b border-slate-100 bg-slate-50/50">
-              <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
-                <FaUniversity className="text-blue-600" /> 
-                About University
-              </h2>
-            </div>
-            <div className="p-6">
-              <div className="space-y-4">
-                {universityInfo.map((info, idx) => (
-                  <div key={idx} className="flex gap-4 p-3 hover:bg-slate-50 rounded-lg transition-colors border-b border-slate-50 last:border-0">
-                    <div className="mt-1 flex-shrink-0 text-lg opacity-80">{info.icon}</div>
-                    <div className="flex-1">
-                      <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-0.5">{info.label}</div>
-                      <div className="text-slate-800 font-medium">
-                        {info.link ? (
-                          <a href={info.link} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline flex items-center gap-1">
-                            {info.value} <FaGlobe className="text-[10px]" />
-                          </a>
-                        ) : info.value}
+      {/* Info & Grading Grid */}
+      <section className="py-16 bg-slate-50">
+        <div className="container mx-auto px-4">
+          <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            
+            {/* About University */}
+            <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
+              <div className="px-6 py-4 border-b border-slate-100 bg-slate-50">
+                <h2 className="text-lg font-bold text-slate-800 flex items-center gap-2">
+                  <FaUniversity className="text-blue-600" /> 
+                  About VTU
+                </h2>
+              </div>
+              <div className="p-6">
+                <div className="space-y-4">
+                  {universityInfo.map((info, idx) => (
+                    <div key={idx} className="flex items-start gap-3">
+                      <div className="mt-0.5 text-lg">{info.icon}</div>
+                      <div>
+                        <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider">{info.label}</div>
+                        <div className="text-slate-700 font-medium">
+                          {info.link ? (
+                            <a href={info.link} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline flex items-center gap-1">
+                              {info.value} <FaExternalLinkAlt className="text-xs" />
+                            </a>
+                          ) : info.value}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-6 p-4 bg-blue-50/50 rounded-xl text-sm text-slate-600 leading-relaxed border border-blue-100">
-                <strong>About VTU:</strong> The official VTU website provides students and faculty with comprehensive access to results, notifications, academic resources, and important updates.
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Grading System */}
-          <div className="bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden">
-            <div className="p-6 border-b border-slate-100 bg-slate-50/50 flex justify-between items-center">
-              <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
-                <FaChartLine className="text-indigo-600" />
-                Grading System
-              </h2>
-              <span className="text-xs font-bold px-2 py-1 bg-indigo-100 text-indigo-700 rounded uppercase">Reference</span>
-            </div>
-            <div className="p-0">
-              <div className="grid grid-cols-3 bg-slate-50 text-slate-500 font-semibold text-xs uppercase tracking-wider py-3 px-4 border-b border-slate-200">
-                <span>Range</span>
-                <span className="text-center">Points</span>
-                <span className="text-right">Grade</span>
+            {/* Grading System */}
+            <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
+              <div className="px-6 py-4 border-b border-slate-100 bg-slate-50 flex justify-between items-center">
+                <h2 className="text-lg font-bold text-slate-800 flex items-center gap-2">
+                  <FaChartLine className="text-indigo-600" />
+                  VTU Grading System
+                </h2>
               </div>
-              <div className="max-h-[400px] overflow-y-auto custom-scrollbar">
-                {gradeSystem.map((g, i) => (
-                  <div key={i} className="grid grid-cols-3 px-4 py-3 border-b border-slate-100 last:border-0 hover:bg-slate-50 transition-colors items-center">
-                    <span className="font-medium text-slate-700">{g.range}</span>
-                    <div className="text-center">
-                      <span className={`inline-flex items-center justify-center w-8 h-8 rounded-full font-bold text-sm ${g.color}`}>
-                        {g.points}
-                      </span>
+              <div className="p-6">
+                <div className="grid grid-cols-3 text-xs font-semibold text-slate-400 uppercase tracking-wider pb-3 border-b border-slate-100">
+                  <span>Marks</span>
+                  <span className="text-center">Points</span>
+                  <span className="text-right">Grade</span>
+                </div>
+                <div className="divide-y divide-slate-100">
+                  {gradeSystem.map((g, i) => (
+                    <div key={i} className="grid grid-cols-3 py-3 items-center">
+                      <span className="text-slate-700 font-medium text-sm">{g.range}</span>
+                      <div className="text-center">
+                        <span className={`inline-flex items-center justify-center w-8 h-8 rounded-full font-bold text-sm ${g.color}`}>
+                          {g.points}
+                        </span>
+                      </div>
+                      <span className="text-right text-slate-600 text-sm">{g.grade}</span>
                     </div>
-                    <span className="text-right font-medium text-slate-600">{g.grade}</span>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           </div>
         </div>
-
-      </div>
+      </section>
     </div>
   );
 };

@@ -1,89 +1,77 @@
 import { useState, useEffect } from 'react';
 import { FaTimes, FaDownload, FaEye, FaFilePdf, FaFolderOpen } from 'react-icons/fa';
 
-const PdfListModal = ({ isOpen, onClose, title, subjectName, materialPath, onViewPdf }) => {
+const PdfListModal = ({ isOpen, onClose, title, subjectName, materialPath, onViewPdf, cachedPdfFiles, onPdfFilesLoaded }) => {
   const [pdfFiles, setPdfFiles] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (isOpen && materialPath) fetchPdfFiles();
-  }, [isOpen, materialPath]);
+    if (!isOpen || !materialPath) return;
+    if (cachedPdfFiles?.length) { setPdfFiles(cachedPdfFiles); setLoading(false); return; }
+    
+    setLoading(true);
+    fetch('/assets/pdfs/manifest.json')
+      .then(r => r.ok ? r.json() : Promise.reject())
+      .then(manifest => {
+        const p = materialPath.split('/').filter(Boolean);
+        const pdfs = p[2] === '2025-scheme' 
+          ? manifest['2025-scheme']?.[p[3]]?.[p[4]]?.[p[5]] || []
+          : manifest[p[2]]?.[p[3]]?.[p[4]] || [];
+        setPdfFiles(pdfs);
+        onPdfFilesLoaded?.(pdfs);
+      })
+      .catch(() => setPdfFiles([]))
+      .finally(() => setLoading(false));
+  }, [isOpen, materialPath, cachedPdfFiles]);
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
   }, [isOpen]);
 
-  const fetchPdfFiles = async () => {
-    setLoading(true);
-    try {
-      const res = await fetch('/assets/pdfs/manifest.json');
-      if (!res.ok) { setPdfFiles([]); return; }
-      
-      const manifest = await res.json();
-      const parts = materialPath.split('/').filter(Boolean);
-      
-      // Handle 2025-scheme: /assets/pdfs/2025-scheme/sem1/subject/type
-      // Handle regular: /assets/pdfs/sem1/subject/type
-      const pdfs = parts[2] === '2025-scheme'
-        ? manifest['2025-scheme']?.[parts[3]]?.[parts[4]]?.[parts[5]] || []
-        : manifest[parts[2]]?.[parts[3]]?.[parts[4]] || [];
-      
-      setPdfFiles(pdfs);
-    } catch { setPdfFiles([]); }
-    finally { setLoading(false); }
-  };
-
-  const handleDownload = (pdf) => {
-    const link = Object.assign(document.createElement('a'), { href: pdf.path, download: pdf.filename, target: '_blank' });
-    link.click();
-  };
+  const download = (pdf) => Object.assign(document.createElement('a'), { href: pdf.path, download: pdf.filename }).click();
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-fadeIn p-4" onClick={onClose}>
-      <div className="w-full max-w-2xl max-h-[85vh] bg-white rounded-2xl shadow-2xl flex flex-col animate-slideUp overflow-hidden" onClick={e => e.stopPropagation()}>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-3" onClick={onClose}>
+      <div className="w-full max-w-3xl max-h-[90vh] bg-white rounded-xl shadow-2xl flex flex-col overflow-hidden" onClick={e => e.stopPropagation()}>
         {/* Header */}
-        <div className="bg-gradient-to-r from-blue-700 to-blue-500 text-white px-6 py-4 flex items-start justify-between">
+        <div className="bg-blue-600 text-white px-5 py-4 flex items-center justify-between">
           <div>
-            <h3 className="text-xl font-bold">{title} - {subjectName}</h3>
-            <p className="text-sm text-white/80 mt-1">Semester 1</p>
+            <h3 className="text-lg font-bold">{title} - {subjectName}</h3>
+            <p className="text-xs text-white/70 mt-0.5">Select a file to view or download</p>
           </div>
-          <button onClick={onClose} className="w-8 h-8 bg-white/20 hover:bg-white/30 rounded-lg flex items-center justify-center text-xl"><FaTimes /></button>
+          <button onClick={onClose} className="w-8 h-8 bg-white/20 hover:bg-white/30 rounded-lg flex items-center justify-center"><FaTimes /></button>
         </div>
 
-        {/* Body */}
-        <div className="flex-1 overflow-y-auto p-6">
+        {/* Content */}
+        <div className="flex-1 overflow-y-auto p-4">
           {loading ? (
-            <div className="flex flex-col items-center py-12">
-              <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mb-4" />
-              <p className="text-gray-600">Loading files...</p>
+            <div className="flex flex-col items-center py-16">
+              <div className="w-10 h-10 border-3 border-blue-600 border-t-transparent rounded-full animate-spin mb-3" />
+              <p className="text-gray-500 text-sm">Loading files...</p>
             </div>
-          ) : pdfFiles.length === 0 ? (
-            <div className="flex flex-col items-center py-12 text-center">
-              <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-4">
-                <FaFolderOpen className="text-4xl text-gray-400" />
-              </div>
-              <h4 className="text-lg font-semibold text-gray-700 mb-2">No PDF files available yet.</h4>
-              <p className="text-gray-500">Please check back later or contribute your own materials.</p>
+          ) : !pdfFiles.length ? (
+            <div className="flex flex-col items-center py-16 text-center">
+              <FaFolderOpen className="text-5xl text-gray-300 mb-4" />
+              <p className="text-gray-600 font-medium">No files available yet</p>
+              <p className="text-gray-400 text-sm mt-1">Check back later or contribute materials</p>
             </div>
           ) : (
-            <div className="space-y-3">
+            <div className="space-y-2">
               {pdfFiles.map((pdf, i) => (
-                <div key={i} className="flex items-center justify-between p-4 bg-gray-50 rounded-xl border border-gray-200 hover:border-blue-300 hover:bg-blue-50/30 transition-all">
-                  <div className="flex items-center gap-3 flex-1 min-w-0">
-                    <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
-                      <FaFilePdf className="text-red-500 text-xl" />
-                    </div>
-                    <span className="text-gray-700 font-medium truncate">{pdf.name}</span>
-                  </div>
-                  <div className="flex gap-2 ml-4">
-                    <button onClick={() => onViewPdf ? onViewPdf(pdf.path, pdf.name) : window.open(pdf.path)} className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg font-medium flex items-center gap-2">
-                      <FaEye /><span className="hidden sm:inline">View</span>
+                <div key={i} className="flex items-center gap-3 p-3 bg-gray-50 hover:bg-gray-100 rounded-lg border border-gray-100 transition-colors">
+                  <FaFilePdf className="text-red-500 text-xl flex-shrink-0" />
+                  <span className="flex-1 text-gray-800 font-medium text-sm truncate">{pdf.name}</span>
+                  <div className="flex gap-2">
+                    <button onClick={() => onViewPdf(pdf.path, pdf.name)} 
+                      className="px-3 py-1.5 bg-green-500 hover:bg-green-600 text-white text-xs font-medium rounded-md flex items-center gap-1.5">
+                      <FaEye className="text-xs" /> View
                     </button>
-                    <button onClick={() => handleDownload(pdf)} className="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg font-medium flex items-center gap-2">
-                      <FaDownload /><span className="hidden sm:inline">Download</span>
+                    <button onClick={() => download(pdf)} 
+                      className="px-3 py-1.5 bg-orange-500 hover:bg-orange-600 text-white text-xs font-medium rounded-md flex items-center gap-1.5">
+                      <FaDownload className="text-xs" /> Download
                     </button>
                   </div>
                 </div>

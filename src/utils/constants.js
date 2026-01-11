@@ -1,7 +1,7 @@
 // App constants
 export const APP_NAME = "Triple S";
 export const APP_FULL_NAME = "Student Study Support";
-export const APP_DESCRIPTION = "Ace your exams with curated notes, model papers & PYQs—everything you need, right here.";
+export const APP_DESCRIPTION = "VTU notes, syllabus & question papers for engineering students.";
 
 // Contact information
 export const CONTACT = {
@@ -12,23 +12,13 @@ export const CONTACT = {
     instagram: "https://www.instagram.com/srujan_shetty0007/"
 };
 
-// Navigation links (updated with Contribute)
+// Navigation links
 export const NAV_LINKS = [
     { name: "Home", path: "/" },
-    { name: "About Us", path: "/about" },
-    { name: "2025 Scheme", path: "/2025-scheme" },
-    {
-        name: "Subjects",
-        dropdown: true,
-        items: [
-            { name: "Mathematics", path: "/subjects/mathematics" },
-            { name: "Physics", path: "/subjects/physics" },
-            { name: "Chemistry", path: "/subjects/chemistry" },
-            { name: "ESC", path: "/subjects/esc" }
-        ]
-    },
-    { name: "VTU", path: "/vtu" },
+    { name: "About", path: "/about" },
+    { name: "2025 Scheme", path: "/vtu-2025-scheme" },
     { name: "Contribute", path: "/contribute" },
+    { name: "VTU", path: "/vtu" },
     { name: "Contact", path: "/contact" }
 ];
 
