@@ -178,6 +178,7 @@ const Footer = () => {
         {/* Divider */}
         <div className="h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent my-4"></div>
 
+        
         {/* Bottom Bar */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-slate-500 text-sm text-center md:text-left">
