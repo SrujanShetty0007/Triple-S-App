@@ -4,28 +4,25 @@ import { FaTimes, FaDownload, FaEye, FaFilePdf, FaFolderOpen } from 'react-icons
 const PdfListModal = ({ isOpen, onClose, title, subjectName, materialPath, onViewPdf, cachedPdfFiles, onPdfFilesLoaded }) => {
   const [pdfFiles, setPdfFiles] = useState([]);
   const [loaded, setLoaded] = useState(false);
+  const [downloadToast, setDownloadToast] = useState(false);
 
   useEffect(() => {
     if (!isOpen) return setPdfFiles([]) || setLoaded(false);
     if (!materialPath) return setPdfFiles([]) || setLoaded(true);
     if (cachedPdfFiles?.length) return setPdfFiles(cachedPdfFiles) || setLoaded(true);
     
-    // Path: /assets/pdfs/2022-scheme/sem3/subject/type
-    // Split: ['', 'assets', 'pdfs', '2022-scheme', 'sem3', 'subject', 'type']
     const parts = materialPath.split('/').filter(Boolean);
-    const scheme = parts[2]; // '2022-scheme' or '2025-scheme'
-    const sem = parts[3];    // 'sem1', 'sem3', etc.
-    const subj = parts[4];   // 'oops-java', etc.
-    const type = parts[5];   // 'notes', 'model-papers', 'previous-papers'
+    const scheme = parts[2];
+    const sem = parts[3];
+    const subj = parts[4];
+    const type = parts[5];
     
     const timeout = setTimeout(() => { setPdfFiles([]); setLoaded(true); }, 3000);
     
-    // Use cache: 'no-store' to prevent browser caching issues
     fetch('/assets/pdfs/manifest.json', { cache: 'no-store' })
       .then(r => r.ok ? r.json() : {})
       .then(m => {
         clearTimeout(timeout);
-        // Handle all scheme directories dynamically
         const pdfs = scheme?.endsWith('-scheme') 
           ? m?.[scheme]?.[sem]?.[subj]?.[type] || []
           : m?.[sem]?.[subj]?.[type] || [];
@@ -42,6 +39,15 @@ const PdfListModal = ({ isOpen, onClose, title, subjectName, materialPath, onVie
     document.body.style.overflow = isOpen ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
   }, [isOpen]);
+
+  const handleDownload = (pdf) => {
+    const a = document.createElement('a');
+    a.href = pdf.path;
+    a.download = pdf.filename;
+    a.click();
+    setDownloadToast(true);
+    setTimeout(() => setDownloadToast(false), 3000);
+  };
 
   if (!isOpen) return null;
 
@@ -76,13 +82,19 @@ const PdfListModal = ({ isOpen, onClose, title, subjectName, materialPath, onVie
                   <button onClick={() => onViewPdf(pdf.path, pdf.name)} className="px-3 py-1.5 bg-green-500 hover:bg-green-600 text-white text-xs font-medium rounded-md flex items-center gap-1.5">
                     <FaEye className="text-xs" /> View
                   </button>
-                  <button onClick={() => Object.assign(document.createElement('a'), { href: pdf.path, download: pdf.filename }).click()} className="px-3 py-1.5 bg-orange-500 hover:bg-orange-600 text-white text-xs font-medium rounded-md flex items-center gap-1.5">
+                  <button onClick={() => handleDownload(pdf)} className="px-3 py-1.5 bg-orange-500 hover:bg-orange-600 text-white text-xs font-medium rounded-md flex items-center gap-1.5">
                     <FaDownload className="text-xs" /> Download
                   </button>
                 </div>
               ))}
             </div>
           )}
+        </div>
+        
+        {/* Download Toast */}
+        <div className={`fixed bottom-6 left-1/2 -translate-x-1/2 px-5 py-3 bg-blue-600 text-white rounded-xl shadow-2xl flex items-center gap-3 transition-all duration-300 z-[100] ${downloadToast ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'}`}>
+          <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+          <span className="font-medium text-sm">Downloading...</span>
         </div>
       </div>
     </div>

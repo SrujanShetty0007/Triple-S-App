@@ -2,84 +2,152 @@ import { useState, useEffect, useRef } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { FaArrowLeft, FaChevronLeft, FaChevronRight, FaDownload } from 'react-icons/fa';
 
-const loadPdfJs = () => new Promise(resolve => {
+const PDFJS_VERSION = '3.11.174';
+const PDFJS_CDN = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${PDFJS_VERSION}`;
+
+const loadPdfJs = () => new Promise((resolve, reject) => {
   if (window.pdfjsLib) return resolve(window.pdfjsLib);
-  const s = document.createElement('script');
-  s.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.min.js';
-  s.onload = () => {
-    window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.worker.min.js';
+  const script = document.createElement('script');
+  script.src = `${PDFJS_CDN}/pdf.min.js`;
+  script.onload = () => {
+    window.pdfjsLib.GlobalWorkerOptions.workerSrc = `${PDFJS_CDN}/pdf.worker.min.js`;
     resolve(window.pdfjsLib);
   };
-  document.head.appendChild(s);
+  script.onerror = () => reject(new Error('Failed to load PDF.js'));
+  document.head.appendChild(script);
 });
 
 const MobilePdfViewer = () => {
   const [params] = useSearchParams();
   const navigate = useNavigate();
   const canvasRef = useRef(null);
-  const [state, setState] = useState({ pdf: null, page: 1, total: 0, loading: true, error: null });
+  const containerRef = useRef(null);
+  const renderTaskRef = useRef(null);
+  const [pdf, setPdf] = useState(null);
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [downloadToast, setDownloadToast] = useState(false);
   
-  const url = params.get('file'), title = params.get('title') || 'PDF';
+  const url = params.get('file');
+  const title = params.get('title') || 'PDF Document';
 
   useEffect(() => {
-    if (!url) { setState(s => ({ ...s, error: 'No PDF specified', loading: false })); return; }
-    loadPdfJs().then(lib => lib.getDocument(url).promise)
-      .then(doc => setState(s => ({ ...s, pdf: doc, total: doc.numPages, loading: false })))
-      .catch(e => setState(s => ({ ...s, error: e.message, loading: false })));
+    if (!url) {
+      setError('No PDF file specified');
+      setLoading(false);
+      return;
+    }
+
+    loadPdfJs()
+      .then(lib => lib.getDocument({
+        url,
+        cMapUrl: `${PDFJS_CDN}/cmaps/`,
+        cMapPacked: true,
+      }).promise)
+      .then(doc => {
+        setPdf(doc);
+        setTotal(doc.numPages);
+        setLoading(false);
+      })
+      .catch(() => {
+        setError('Failed to load PDF');
+        setLoading(false);
+      });
   }, [url]);
 
   useEffect(() => {
-    if (!state.pdf || !canvasRef.current) return;
-    state.pdf.getPage(state.page).then(page => {
-      const canvas = canvasRef.current, ctx = canvas.getContext('2d');
-      const scale = (window.innerWidth - 16) / page.getViewport({ scale: 1 }).width;
-      const vp = page.getViewport({ scale }), dpr = window.devicePixelRatio || 1;
-      canvas.style.width = vp.width + 'px';
-      canvas.style.height = vp.height + 'px';
-      canvas.width = vp.width * dpr;
-      canvas.height = vp.height * dpr;
-      ctx.scale(dpr, dpr);
-      page.render({ canvasContext: ctx, viewport: vp });
-    });
-  }, [state.pdf, state.page]);
+    if (!pdf || !canvasRef.current) return;
 
-  const setPage = (fn) => setState(s => ({ ...s, page: fn(s.page) }));
-  const download = () => {
+    if (renderTaskRef.current) {
+      renderTaskRef.current.cancel();
+      renderTaskRef.current = null;
+    }
+
+    pdf.getPage(page).then(pdfPage => {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      
+      const ctx = canvas.getContext('2d');
+      const containerWidth = containerRef.current?.clientWidth || window.innerWidth - 16;
+      const scale = containerWidth / pdfPage.getViewport({ scale: 1 }).width;
+      const viewport = pdfPage.getViewport({ scale });
+      const dpr = window.devicePixelRatio || 1;
+      
+      canvas.width = viewport.width * dpr;
+      canvas.height = viewport.height * dpr;
+      canvas.style.width = `${viewport.width}px`;
+      canvas.style.height = `${viewport.height}px`;
+      ctx.scale(dpr, dpr);
+
+      renderTaskRef.current = pdfPage.render({ canvasContext: ctx, viewport });
+      renderTaskRef.current.promise.catch(() => {});
+    });
+
+    return () => {
+      if (renderTaskRef.current) renderTaskRef.current.cancel();
+    };
+  }, [pdf, page]);
+
+  const handleDownload = () => {
     const a = document.createElement('a');
     a.href = url;
-    a.download = title + '.pdf';
-    document.body.appendChild(a);
+    a.download = `${title}.pdf`;
     a.click();
-    document.body.removeChild(a);
+    setDownloadToast(true);
+    setTimeout(() => setDownloadToast(false), 3000);
   };
 
   return (
     <div className="min-h-screen bg-gray-900 flex flex-col">
       <header className="bg-blue-600 text-white px-4 py-3 flex items-center gap-3 sticky top-0 z-10">
-        <button onClick={() => navigate(-1)} className="p-2 hover:bg-blue-700 rounded-lg"><FaArrowLeft /></button>
+        <button onClick={() => navigate(-1)} className="p-2 hover:bg-blue-700 rounded-lg">
+          <FaArrowLeft />
+        </button>
         <h1 className="text-base font-semibold truncate flex-1">{title}</h1>
       </header>
+
       <div className="bg-gray-800 text-white px-4 py-2.5 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={state.page <= 1}
-            className="p-2 bg-gray-700 rounded disabled:opacity-40"><FaChevronLeft /></button>
-          <span className="text-xs">{state.page} / {state.total}</span>
-          <button onClick={() => setPage(p => Math.min(state.total, p + 1))} disabled={state.page >= state.total}
-            className="p-2 bg-gray-700 rounded disabled:opacity-40"><FaChevronRight /></button>
+          <button 
+            onClick={() => setPage(p => Math.max(1, p - 1))} 
+            disabled={page <= 1}
+            className="p-2.5 bg-gray-700 rounded-lg disabled:opacity-40"
+          >
+            <FaChevronLeft />
+          </button>
+          <span className="text-sm min-w-[50px] text-center">{page} / {total}</span>
+          <button 
+            onClick={() => setPage(p => Math.min(total, p + 1))} 
+            disabled={page >= total}
+            className="p-2.5 bg-gray-700 rounded-lg disabled:opacity-40"
+          >
+            <FaChevronRight />
+          </button>
         </div>
-        <button onClick={download} className="flex items-center gap-2 px-3 py-1.5 bg-green-600 rounded text-sm font-medium">
+        <button onClick={handleDownload} className="flex items-center gap-2 px-4 py-2 bg-green-600 rounded-lg text-sm font-medium">
           <FaDownload className="text-xs" /> Download
         </button>
       </div>
-      <div className="flex-1 overflow-auto flex justify-center p-2 bg-gray-800">
-        {state.loading && (
+
+      <div ref={containerRef} className="flex-1 overflow-auto bg-gray-800 p-2 flex justify-center">
+        {loading && (
           <div className="flex flex-col items-center justify-center text-white py-20">
-            <div className="w-10 h-10 border-3 border-blue-500 border-t-transparent rounded-full animate-spin mb-3" />
-            <p className="text-sm">Loading...</p>
+            <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-3" />
+            <p className="text-sm">Loading PDF...</p>
           </div>
         )}
-        {state.error && <p className="text-red-400 py-20 text-center text-sm">{state.error}</p>}
-        {!state.loading && !state.error && <canvas ref={canvasRef} className="shadow-xl" />}
+        {error && <p className="text-red-400 py-20 text-center">{error}</p>}
+        {!loading && !error && (
+          <canvas ref={canvasRef} className="shadow-xl bg-white" />
+        )}
+      </div>
+
+      {/* Download Toast */}
+      <div className={`fixed bottom-6 left-1/2 -translate-x-1/2 px-5 py-3 bg-blue-600 text-white rounded-xl shadow-2xl flex items-center gap-3 transition-all duration-300 z-[100] ${downloadToast ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'}`}>
+        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+        <span className="font-medium text-sm">Downloading...</span>
       </div>
     </div>
   );
