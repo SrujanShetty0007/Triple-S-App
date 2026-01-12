@@ -1,4 +1,59 @@
 {
+  "2022-scheme": {
+    "sem3": {
+      "data-analytics-excel": {
+        "model-papers": [],
+        "notes": [],
+        "previous-papers": []
+      },
+      "data-structures": {
+        "model-papers": [],
+        "notes": [],
+        "previous-papers": []
+      },
+      "data-structures-lab": {
+        "model-papers": [],
+        "notes": [],
+        "previous-papers": []
+      },
+      "data-visualization-python": {
+        "model-papers": [],
+        "notes": [],
+        "previous-papers": []
+      },
+      "ddco": {
+        "model-papers": [],
+        "notes": [],
+        "previous-papers": []
+      },
+      "mathematics-for-cs": {
+        "model-papers": [],
+        "notes": [],
+        "previous-papers": []
+      },
+      "oops-java": {
+        "model-papers": [],
+        "notes": [
+          {
+            "filename": "BCS306A-module-5-pdf.pdf",
+            "name": "Bcs306a Module 5 Pdf",
+            "path": "/assets/pdfs/2022-scheme/sem3/oops-java/notes/BCS306A-module-5-pdf.pdf"
+          }
+        ],
+        "previous-papers": []
+      },
+      "operating-systems": {
+        "model-papers": [],
+        "notes": [],
+        "previous-papers": []
+      },
+      "scr": {
+        "model-papers": [],
+        "notes": [],
+        "previous-papers": []
+      }
+    }
+  },
   "2025-scheme": {
     "sem1": {
       "ai-applications": {

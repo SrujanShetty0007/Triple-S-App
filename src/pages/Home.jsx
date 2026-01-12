@@ -19,9 +19,9 @@ const Home = () => {
     },
     { 
       name: '2022 Scheme', 
-      status: 'coming', 
-      desc: 'Study materials coming soon',
-      link: null
+      status: 'available', 
+      desc: 'Complete study materials for 2022 scheme',
+      link: '/vtu-2022-scheme'
     },
     { 
       name: '2018 Scheme', 

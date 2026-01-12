@@ -10,13 +10,13 @@ const PdfListModal = ({ isOpen, onClose, title, subjectName, materialPath, onVie
     if (!materialPath) return setPdfFiles([]) || setLoaded(true);
     if (cachedPdfFiles?.length) return setPdfFiles(cachedPdfFiles) || setLoaded(true);
     
-    // Path: /assets/pdfs/2025-scheme/sem1/subject/type
-    // Split: ['', 'assets', 'pdfs', '2025-scheme', 'sem1', 'subject', 'type']
+    // Path: /assets/pdfs/2022-scheme/sem3/subject/type
+    // Split: ['', 'assets', 'pdfs', '2022-scheme', 'sem3', 'subject', 'type']
     const parts = materialPath.split('/').filter(Boolean);
-    const scheme = parts[2]; // '2025-scheme'
-    const sem = parts[3];    // 'sem1'
-    const subj = parts[4];   // 'applied-chemistry-cse'
-    const type = parts[5];   // 'notes'
+    const scheme = parts[2]; // '2022-scheme' or '2025-scheme'
+    const sem = parts[3];    // 'sem1', 'sem3', etc.
+    const subj = parts[4];   // 'oops-java', etc.
+    const type = parts[5];   // 'notes', 'model-papers', 'previous-papers'
     
     const timeout = setTimeout(() => { setPdfFiles([]); setLoaded(true); }, 3000);
     
@@ -24,7 +24,10 @@ const PdfListModal = ({ isOpen, onClose, title, subjectName, materialPath, onVie
       .then(r => r.ok ? r.json() : {})
       .then(m => {
         clearTimeout(timeout);
-        const pdfs = scheme === '2025-scheme' ? m?.['2025-scheme']?.[sem]?.[subj]?.[type] || [] : m?.[sem]?.[subj]?.[type] || [];
+        // Handle all scheme directories dynamically
+        const pdfs = scheme?.endsWith('-scheme') 
+          ? m?.[scheme]?.[sem]?.[subj]?.[type] || []
+          : m?.[sem]?.[subj]?.[type] || [];
         setPdfFiles(pdfs);
         onPdfFilesLoaded?.(pdfs);
         setLoaded(true);

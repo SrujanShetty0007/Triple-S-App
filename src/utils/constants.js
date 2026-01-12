@@ -16,7 +16,14 @@ export const CONTACT = {
 export const NAV_LINKS = [
     { name: "Home", path: "/" },
     { name: "About", path: "/about" },
-    { name: "2025 Scheme", path: "/vtu-2025-scheme" },
+    {
+        name: "Schemes",
+        dropdown: true,
+        items: [
+            { name: "2025 Scheme", path: "/vtu-2025-scheme" },
+            { name: "2022 Scheme", path: "/vtu-2022-scheme" }
+        ]
+    },
     { name: "Contribute", path: "/contribute" },
     { name: "VTU", path: "/vtu" },
     { name: "Contact", path: "/contact" }

@@ -20,8 +20,8 @@ const SemesterFilter = ({ onFilterChange, activeSemester }) => {
             onClick={() => onFilterChange(semester.id)}
             className={`px-5 py-2.5 rounded-xl font-medium transition-all whitespace-nowrap flex-shrink-0 ${
               activeSemester === semester.id
-                ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/25'
-                : 'bg-slate-50 text-slate-600 hover:bg-slate-100 hover:text-slate-900 border border-slate-200'
+                ? 'bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white'
+                : 'bg-slate-50 text-slate-600 hover:text-slate-900 border border-slate-200'
             }`}
           >
             {semester.label}

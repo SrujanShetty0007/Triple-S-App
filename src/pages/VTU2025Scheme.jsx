@@ -63,20 +63,28 @@ const VTU2025Scheme = () => {
       </section>
 
       {/* Search */}
-      <section className="container mx-auto px-4 py-8 -mt-6 relative z-20">
-        <div className="max-w-2xl mx-auto">
-          <div className="bg-white rounded-xl shadow-lg border border-slate-200 p-2 flex items-center gap-2">
-            <FaSearch className="text-slate-400 ml-3" />
+      <section className="container mx-auto px-4 py-6 -mt-2 relative z-20">
+        <div className="max-w-2xl mx-auto ">
+          <div className="relative">
+            <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
             <input
               type="text"
-              placeholder="Search VTU 2025 scheme subjects..."
+              placeholder="Search subjects by name or code..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="flex-1 px-3 py-3 outline-none text-slate-700 placeholder:text-slate-400"
+              className="w-full pl-11 pr-10 py-4 bg-white rounded-xl shadow-lg border border-slate-200 text-slate-700 placeholder:text-slate-400 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition-all"
             />
-            <button className="px-5 py-2.5 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors">
-              Search
-            </button>
+            {searchQuery && (
+              <button 
+                onClick={() => setSearchQuery('')}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+                aria-label="Clear search"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            )}
           </div>
         </div>
       </section>

@@ -11,6 +11,7 @@ import './index.css';
 // Lazy load pages for better performance and loading experience
 const Home = lazy(() => import('./pages/Home'));
 const VTU2025Scheme = lazy(() => import('./pages/VTU2025Scheme'));
+const VTU2022Scheme = lazy(() => import('./pages/VTU2022Scheme'));
 const VTU = lazy(() => import('./pages/VTU'));
 const Contact = lazy(() => import('./pages/Contact'));
 const Contribute = lazy(() => import('./pages/Contribute'));
@@ -23,7 +24,7 @@ const MobilePdfViewer = lazy(() => import('./pages/MobilePdfViewer'));
 const MainLayout = ({ children }) => (
   <div className="flex flex-col min-h-screen">
     <Header />
-    <main className="flex-grow">
+    <main className="flex-grow pt-20">
       <Suspense fallback={<PageLoader />}>
         {children}
       </Suspense>
@@ -62,6 +63,12 @@ function App() {
             <Route path="/vtu-2025-scheme" element={
               <MainLayout>
                 <VTU2025Scheme />
+              </MainLayout>
+            } />
+            
+            <Route path="/vtu-2022-scheme" element={
+              <MainLayout>
+                <VTU2022Scheme />
               </MainLayout>
             } />
             

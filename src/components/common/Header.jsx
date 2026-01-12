@@ -36,10 +36,23 @@ const Header = () => {
       if (showUserMenu && !e.target.closest('.user-menu-container')) {
         setShowUserMenu(false);
       }
+      if (activeDropdown && !e.target.closest('.nav-dropdown')) {
+        setActiveDropdown(null);
+      }
+    };
+    const handleKeyDown = (e) => {
+      if (e.key === ' ' || e.key === 'Escape') {
+        setActiveDropdown(null);
+        setShowUserMenu(false);
+      }
     };
     document.addEventListener('click', handleClickOutside);
-    return () => document.removeEventListener('click', handleClickOutside);
-  }, [showUserMenu]);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [showUserMenu, activeDropdown]);
 
   // Prevent body scroll when mobile menu is open
   useEffect(() => {
@@ -62,7 +75,7 @@ const Header = () => {
     const icons = {
       'Home': <FaHome />,
       'About': <FaInfoCircle />,
-      '2025 Scheme': <FaGraduationCap />,
+      'Schemes': <FaLayerGroup />,
       'VTU': <FaUniversity />,
       'Contribute': <FaHandHoldingHeart />,
       'Contact': <FaEnvelope />
@@ -72,7 +85,7 @@ const Header = () => {
 
   return (
     <>
-      <header className={`sticky top-0 z-[100] py-3 transition-all duration-300 ${
+      <header className={`fixed top-0 left-0 right-0 z-[100] py-3 transition-all duration-300 ${
         scrolled ? 'bg-white shadow-lg' : 'bg-white shadow-sm'
       } border-b border-gray-100`}>
         <div className="container mx-auto px-4">
@@ -90,7 +103,7 @@ const Header = () => {
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-1">
               {NAV_LINKS.map((link) => (
-                <div key={link.name} className="relative group">
+                <div key={link.name} className="relative group nav-dropdown">
                   {link.dropdown ? (
                     <>
                       <button
@@ -104,7 +117,7 @@ const Header = () => {
                         <FaChevronDown className={`text-[10px] transition-transform duration-300 ${activeDropdown === link.name ? 'rotate-180' : ''}`} />
                       </button>
                       
-                      <div className={`absolute top-full left-0 mt-2 w-64 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden transition-all duration-300 ${
+                      <div className={`absolute top-full left-0 mt-2 w-52 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden transition-all duration-300 ${
                         activeDropdown === link.name ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible translate-y-2'
                       }`}>
                         <div className="p-2 grid gap-1">

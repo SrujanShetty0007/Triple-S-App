@@ -65,26 +65,26 @@ function generateManifest() {
     topLevelDirs.forEach(topDir => {
         const topPath = path.join(BASE_DIR, topDir);
 
-        // Handle 2025-scheme (has extra semester level)
-        if (topDir === '2025-scheme') {
-            manifest['2025-scheme'] = {};
+        // Handle all scheme directories (2022-scheme, 2025-scheme, etc.)
+        if (topDir.endsWith('-scheme')) {
+            manifest[topDir] = {};
 
             const semesterDirs = fs.readdirSync(topPath)
                 .filter(item => item.startsWith('sem') && fs.statSync(path.join(topPath, item)).isDirectory());
 
-            console.log(`Found semesters in 2025-scheme:`, semesterDirs);
+            console.log(`Found semesters in ${topDir}:`, semesterDirs);
 
             semesterDirs.forEach(semester => {
-                manifest['2025-scheme'][semester] = {};
+                manifest[topDir][semester] = {};
                 const semesterPath = path.join(topPath, semester);
 
                 const subjectDirs = fs.readdirSync(semesterPath)
                     .filter(item => fs.statSync(path.join(semesterPath, item)).isDirectory());
 
-                console.log(`Found subjects for 2025-scheme/${semester}:`, subjectDirs);
+                console.log(`Found subjects for ${topDir}/${semester}:`, subjectDirs);
 
                 subjectDirs.forEach(subject => {
-                    manifest['2025-scheme'][semester][subject] = {};
+                    manifest[topDir][semester][subject] = {};
                     const subjectPath = path.join(semesterPath, subject);
 
                     const materialTypeDirs = fs.readdirSync(subjectPath)
@@ -94,13 +94,13 @@ function generateManifest() {
                         const materialPath = path.join(subjectPath, materialType);
                         const pdfFiles = scanDirectory(materialPath);
 
-                        manifest['2025-scheme'][semester][subject][materialType] = pdfFiles.map(filename => ({
+                        manifest[topDir][semester][subject][materialType] = pdfFiles.map(filename => ({
                             filename,
                             name: formatDisplayName(filename),
-                            path: `/assets/pdfs/2025-scheme/${semester}/${subject}/${materialType}/${filename}`
+                            path: `/assets/pdfs/${topDir}/${semester}/${subject}/${materialType}/${filename}`
                         }));
 
-                        console.log(`Found ${pdfFiles.length} files in 2025-scheme/${semester}/${subject}/${materialType}`);
+                        console.log(`Found ${pdfFiles.length} files in ${topDir}/${semester}/${subject}/${materialType}`);
                     });
                 });
             });
@@ -158,7 +158,8 @@ function updateManifest() {
         let totalFiles = 0;
 
         Object.keys(manifest).forEach(key => {
-            if (key === '2025-scheme') {
+            // Handle all scheme directories (ends with -scheme)
+            if (key.endsWith('-scheme')) {
                 Object.keys(manifest[key]).forEach(sem => {
                     totalSemesters++;
                     Object.keys(manifest[key][sem]).forEach(subj => {
