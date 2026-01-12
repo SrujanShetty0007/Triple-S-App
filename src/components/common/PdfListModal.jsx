@@ -20,7 +20,8 @@ const PdfListModal = ({ isOpen, onClose, title, subjectName, materialPath, onVie
     
     const timeout = setTimeout(() => { setPdfFiles([]); setLoaded(true); }, 3000);
     
-    fetch('/assets/pdfs/manifest.json')
+    // Use cache: 'no-store' to prevent browser caching issues
+    fetch('/assets/pdfs/manifest.json', { cache: 'no-store' })
       .then(r => r.ok ? r.json() : {})
       .then(m => {
         clearTimeout(timeout);
