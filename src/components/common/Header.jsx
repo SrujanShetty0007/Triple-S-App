@@ -18,28 +18,38 @@ const ICONS = {
 const UserMenu = ({ user, showMenu, onToggle, onSignOut, isMobile }) => {
   if (!user) return null;
   
+  const initial = (user.displayName || user.email || 'U').charAt(0).toUpperCase();
+  const name = user.displayName || 'User';
+  const email = user.email || '';
+  
   return (
-    <div className="relative user-menu-container">
+    <div className="relative">
+      {/* Avatar Button */}
       <button 
         onClick={(e) => { e.stopPropagation(); onToggle(); }}
-        className={`${isMobile ? 'w-9 h-9' : 'w-10 h-10'} bg-gradient-to-br from-blue-600 to-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md hover:scale-105 transition-transform`}
-        title={user.displayName || user.email}
+        className={`${isMobile ? 'w-9 h-9 text-sm' : 'w-10 h-10 text-base'} bg-blue-600 hover:bg-blue-700 rounded-full flex items-center justify-center text-white font-semibold transition-colors`}
       >
-        {(user.displayName || user.email || 'U').charAt(0).toUpperCase()}
+        {initial}
       </button>
       
+      {/* Dropdown */}
       {showMenu && (
-        <div className="absolute top-[calc(100%+8px)] right-0 w-52 bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden z-[200]">
-          <div className="px-4 py-3 bg-slate-50 border-b border-gray-200">
-            <p className="font-semibold text-gray-800 text-sm truncate">{user.displayName || 'User'}</p>
-            <p className="text-xs text-gray-500 truncate mt-0.5">{user.email}</p>
+        <div 
+          className="absolute top-full right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden z-[200]"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* User Info */}
+          <div className="px-4 py-3 bg-gray-50 border-b border-gray-100">
+            <p className="font-semibold text-gray-900 text-sm truncate">{name}</p>
+            <p className="text-xs text-gray-500 truncate">{email}</p>
           </div>
+          
+          {/* Logout Button */}
           <button 
             onClick={onSignOut}
-            className="w-full text-left px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors flex items-center gap-2"
+            className="w-full px-4 py-3 text-left text-sm font-medium text-red-600 hover:bg-red-50 transition-colors"
           >
-            <span>🚪</span>
-            <span className="font-medium">Logout</span>
+            Sign Out
           </button>
         </div>
       )}
@@ -69,13 +79,12 @@ const Header = () => {
   }, [location]);
 
   useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (showUserMenu && !e.target.closest('.user-menu-container')) setShowUserMenu(false);
-      // Only close desktop dropdown when clicking outside, not mobile
-      if (activeDropdown && !e.target.closest('.nav-dropdown') && !e.target.closest('.mobile-nav')) setActiveDropdown(null);
+    const handleClickOutside = () => {
+      setShowUserMenu(false);
+      setActiveDropdown(null);
     };
     const handleKeyDown = (e) => {
-      if (e.key === ' ' || e.key === 'Escape') {
+      if (e.key === 'Escape') {
         setActiveDropdown(null);
         setShowUserMenu(false);
       }
@@ -86,7 +95,7 @@ const Header = () => {
       document.removeEventListener('click', handleClickOutside);
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [showUserMenu, activeDropdown]);
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = isMobileMenuOpen ? 'hidden' : '';
@@ -122,14 +131,20 @@ const Header = () => {
                     <>
                       <button
                         className={`px-4 py-2 rounded-lg transition-all flex items-center gap-2 font-medium ${activeDropdown === link.name ? 'text-blue-600' : 'text-gray-700 hover:text-blue-600'}`}
-                        onClick={() => setActiveDropdown(activeDropdown === link.name ? null : link.name)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setActiveDropdown(activeDropdown === link.name ? null : link.name);
+                        }}
                       >
                         <span className="text-blue-500/70">{ICONS[link.name]}</span>
                         {link.name}
                         <FaChevronDown className={`text-[10px] transition-transform duration-300 ${activeDropdown === link.name ? 'rotate-180' : ''}`} />
                       </button>
                       
-                      <div className={`absolute top-full left-0 mt-2 w-52 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden transition-all duration-300 ${activeDropdown === link.name ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible translate-y-2'}`}>
+                      <div 
+                        className={`absolute top-full left-0 mt-2 w-52 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden transition-all duration-300 ${activeDropdown === link.name ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible translate-y-2'}`}
+                        onClick={(e) => e.stopPropagation()}
+                      >
                         <div className="p-2 grid gap-1">
                           {link.items.map((item) => (
                             <Link

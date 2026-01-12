@@ -84,12 +84,20 @@ const SEO = ({
       {/* Geographic & Educational Tags */}
       <meta name="geo.region" content="IN-KA" />
       <meta name="geo.placename" content="Karnataka, India" />
-      <meta name="distribution" content="global" />
+      <meta name="distribution" content="Global" />
       <meta name="rating" content="General" />
-      <meta name="classification" content="Education" />
       <meta name="category" content="Education, Engineering, Study Materials" />
-      <meta name="coverage" content="Worldwide" />
       <meta name="target" content="Students, Engineers, VTU Students" />
+      
+      {/* VTU 2025 Scheme Focused SEO */}
+      <meta name="subject" content="VTU 2025 Scheme Notes, Syllabus and Question Papers" />
+      <meta name="classification" content="Education, Engineering, VTU, 2025 Scheme, 2022 Scheme" />
+      <meta name="topic" content="VTU 2025 Scheme Notes, CSE, ISE, ECE, Engineering Mathematics, Data Structures, Operating System" />
+      <meta name="coverage" content="VTU 2025 Scheme, VTU 2022 Scheme, Karnataka, India" />
+      <meta name="revisit-after" content="1 day" />
+      
+      {/* VTU 2025 Scheme Keywords */}
+      <meta name="keywords" content="VTU 2025 scheme notes, VTU 2025 scheme syllabus, VTU 2025 scheme question papers, VTU 2025 scheme CSE notes, VTU 2025 scheme ISE notes, VTU 2025 scheme ECE notes, VTU 2025 scheme first year notes, VTU 2025 scheme second year notes, VTU 2025 scheme third year notes, VTU 2025 scheme fourth year notes, VTU 2025 scheme engineering mathematics, VTU 2025 scheme BMATS101, VTU 2025 scheme BCS301, VTU 2025 scheme BCS302, VTU 2025 scheme BCS303, VTU 2025 scheme BCS304, VTU 2025 scheme data structures, VTU 2025 scheme operating system, VTU 2025 scheme java, VTU 2025 scheme python, VTU 2025 scheme lab manuals, VTU 2025 scheme internal papers, VTU 2025 scheme VTU syllabus pdf, VTU 2025 scheme VTU notes pdf, VTU 2025 scheme exam preparation, VTU 2025 scheme engineering notes, VTU 2025 scheme triple s, Triple-S VTU 2025 scheme, Triple-S 2025 scheme notes, Triple-S VTU notes 2025, VTU 2025 scheme download notes, VTU 2025 scheme pdf download, VTU 2025 scheme free notes, VTU 2025 scheme study material, VTU 2025 scheme online notes, VTU 2025 scheme learning platform" />
       
       {/* Additional Discovery Tags */}
       <meta name="apple-mobile-web-app-capable" content="yes" />
