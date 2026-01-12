@@ -57,7 +57,13 @@
   "2025-scheme": {
     "sem1": {
       "ai-applications": {
-        "model-papers": [],
+        "model-papers": [
+          {
+            "filename": "1BAIA103.pdf",
+            "name": "1baia103",
+            "path": "/assets/pdfs/2025-scheme/sem1/ai-applications/model-papers/1BAIA103.pdf"
+          }
+        ],
         "notes": [
           {
             "filename": "1BAIA103 mod 1.pdf",
@@ -100,6 +106,11 @@
       "applied-chemistry-cse": {
         "model-papers": [
           {
+            "filename": "1BCHES102-MQP1.pdf",
+            "name": "1bches102 Mqp1",
+            "path": "/assets/pdfs/2025-scheme/sem1/applied-chemistry-cse/model-papers/1BCHES102-MQP1.pdf"
+          },
+          {
             "filename": "Applied Chemistry for CSE.pdf",
             "name": "Applied Chemistry For Cse",
             "path": "/assets/pdfs/2025-scheme/sem1/applied-chemistry-cse/model-papers/Applied Chemistry for CSE.pdf"
@@ -140,12 +151,29 @@
         "previous-papers": []
       },
       "applied-mathematics-cse": {
-        "model-papers": [],
+        "model-papers": [
+          {
+            "filename": "1BMATC101-Model_QP1.pdf",
+            "name": "1bmatc101 Model Qp1",
+            "path": "/assets/pdfs/2025-scheme/sem1/applied-mathematics-cse/model-papers/1BMATC101-Model_QP1.pdf"
+          },
+          {
+            "filename": "1BMATS101-Model_QP2.pdf",
+            "name": "1bmats101 Model Qp2",
+            "path": "/assets/pdfs/2025-scheme/sem1/applied-mathematics-cse/model-papers/1BMATS101-Model_QP2.pdf"
+          }
+        ],
         "notes": [],
         "previous-papers": []
       },
       "applied-mathematics-ece": {
-        "model-papers": [],
+        "model-papers": [
+          {
+            "filename": "1BMATE101-Model_QP.pdf",
+            "name": "1bmate101 Model Qp",
+            "path": "/assets/pdfs/2025-scheme/sem1/applied-mathematics-ece/model-papers/1BMATE101-Model_QP.pdf"
+          }
+        ],
         "notes": [],
         "previous-papers": []
       },
@@ -191,7 +219,13 @@
         "previous-papers": []
       },
       "applied-physics-ise": {
-        "model-papers": [],
+        "model-papers": [
+          {
+            "filename": "1BPHYS102-MQP-1.pdf",
+            "name": "1bphys102 Mqp 1",
+            "path": "/assets/pdfs/2025-scheme/sem1/applied-physics-ise/model-papers/1BPHYS102-MQP-1.pdf"
+          }
+        ],
         "notes": [
           {
             "filename": "25S-CSE&ECE-M1-QUANTUM MECHANICS-KRA-FINAL.pdf",
@@ -227,7 +261,13 @@
         "previous-papers": []
       },
       "c-programming": {
-        "model-papers": [],
+        "model-papers": [
+          {
+            "filename": "1BEIT105.pdf",
+            "name": "1beit105",
+            "path": "/assets/pdfs/2025-scheme/sem1/c-programming/model-papers/1BEIT105.pdf"
+          }
+        ],
         "notes": [],
         "previous-papers": []
       },
@@ -237,17 +277,35 @@
         "previous-papers": []
       },
       "caed-ece": {
-        "model-papers": [],
+        "model-papers": [
+          {
+            "filename": "1BCEDx103.pdf",
+            "name": "1bcedx103",
+            "path": "/assets/pdfs/2025-scheme/sem1/caed-ece/model-papers/1BCEDx103.pdf"
+          }
+        ],
         "notes": [],
         "previous-papers": []
       },
       "caed-ise": {
-        "model-papers": [],
+        "model-papers": [
+          {
+            "filename": "1BCEDx103.pdf",
+            "name": "1bcedx103",
+            "path": "/assets/pdfs/2025-scheme/sem1/caed-ise/model-papers/1BCEDx103.pdf"
+          }
+        ],
         "notes": [],
         "previous-papers": []
       },
       "communication-skills": {
-        "model-papers": [],
+        "model-papers": [
+          {
+            "filename": "1BENG106.pdf",
+            "name": "1beng106",
+            "path": "/assets/pdfs/2025-scheme/sem1/communication-skills/model-papers/1BENG106.pdf"
+          }
+        ],
         "notes": [],
         "previous-papers": []
       },
@@ -257,7 +315,13 @@
         "previous-papers": []
       },
       "ece-fundamentals": {
-        "model-papers": [],
+        "model-papers": [
+          {
+            "filename": "1BECE105.pdf",
+            "name": "1bece105",
+            "path": "/assets/pdfs/2025-scheme/sem1/ece-fundamentals/model-papers/1BECE105.pdf"
+          }
+        ],
         "notes": [],
         "previous-papers": []
       },
@@ -267,12 +331,24 @@
         "previous-papers": []
       },
       "electrical-engineering": {
-        "model-papers": [],
+        "model-papers": [
+          {
+            "filename": "1BESC104B.pdf",
+            "name": "1besc104b",
+            "path": "/assets/pdfs/2025-scheme/sem1/electrical-engineering/model-papers/1BESC104B.pdf"
+          }
+        ],
         "notes": [],
         "previous-papers": []
       },
       "electronics-communication": {
-        "model-papers": [],
+        "model-papers": [
+          {
+            "filename": "1BESC104C.pdf",
+            "name": "1besc104c",
+            "path": "/assets/pdfs/2025-scheme/sem1/electronics-communication/model-papers/1BESC104C.pdf"
+          }
+        ],
         "notes": [],
         "previous-papers": []
       },
@@ -282,7 +358,13 @@
         "previous-papers": []
       },
       "information-technology": {
-        "model-papers": [],
+        "model-papers": [
+          {
+            "filename": "1BESC104E.pdf",
+            "name": "1besc104e",
+            "path": "/assets/pdfs/2025-scheme/sem1/information-technology/model-papers/1BESC104E.pdf"
+          }
+        ],
         "notes": [],
         "previous-papers": []
       },
@@ -292,7 +374,13 @@
         "previous-papers": []
       },
       "python-programming": {
-        "model-papers": [],
+        "model-papers": [
+          {
+            "filename": "1BPLC105B.pdf",
+            "name": "1bplc105b",
+            "path": "/assets/pdfs/2025-scheme/sem1/python-programming/model-papers/1BPLC105B.pdf"
+          }
+        ],
         "notes": [],
         "previous-papers": []
       },
